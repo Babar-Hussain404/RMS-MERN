@@ -37,7 +37,7 @@ const Sidenav = () => {
           <span className="menu-header-text">Authorization</span>
         </li>
 
-        {/* Hotel */}
+        {/* Login */}
         <li className="menu-item">
           <Link to='/login' className="menu-link">
             <i className="menu-icon tf-icons fa-solid fa-arrow-right-to-bracket"></i>
@@ -45,7 +45,7 @@ const Sidenav = () => {
           </Link>
         </li>
 
-        {/* Hostel */}
+        {/* Register */}
         <li className="menu-item">
           <Link to='/register' className="menu-link">
             <i className="menu-icon tf-icons fa-regular fa-address-card"></i>
