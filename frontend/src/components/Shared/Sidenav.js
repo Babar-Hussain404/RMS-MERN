@@ -59,10 +59,10 @@ const Sidenav = () => {
 
         {/* Hotel */}
         <li className="menu-item">
-          <a asp-controller="Residences" asp-action="Hotel" className="menu-link">
+          <Link to='/hotel' className="menu-link">
             <i className="menu-icon tf-icons bx bx-hotel"></i>
             <div data-i18n="Hotel">Hotel</div>
-          </a>
+          </Link>
         </li>
 
         {/* Hostel */}
