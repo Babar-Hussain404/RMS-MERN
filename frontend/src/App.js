@@ -21,15 +21,13 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route
-            path="/"
-            element={<Layout alert={alert} showAlert={showAlert} />}
+          <Route path="/" element={<Layout />}
           > {/* Home */}
-            <Route index element={<Home showAlert={showAlert} />} />
-            <Route path="privacypolicy" element={<PrivacyPolicy showAlert={showAlert} />} />
-            <Route path="contactus" element={<ContactUs showAlert={showAlert} />} />
-            <Route path="aboutus" element={<AboutUs showAlert={showAlert} />} />
-            <Route path="help" element={<Help showAlert={showAlert} />} />
+            <Route index element={<Home />} />
+            <Route path="privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="contactus" element={<ContactUs />} />
+            <Route path="aboutus" element={<AboutUs />} />
+            <Route path="help" element={<Help />} />
           </Route>
         </Routes>
       </Router>

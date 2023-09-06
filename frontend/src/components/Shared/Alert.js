@@ -1,5 +1,9 @@
-import React from "react";
-function Alert(props) {
+import React, { useContext } from "react";
+import alertContext from "../../context/alerts/alertContext";
+
+function Alert() {
+  const { alert } = useContext(alertContext)
+
   const capitalize = (word) => {
     if(word === "danger"){
       word = "error";
@@ -10,15 +14,16 @@ function Alert(props) {
     const lower = word.toLowerCase();
     return lower.charAt(0).toUpperCase() + lower.slice(1);
   };
+
   return (
-    <div className='mb-3' style={{ height: "50px" }}>
-      {props.alert && (
+    <div className='mx-4 mt-2'>
+      {alert && (
         <div
-          className={`alert alert-${props.alert.type} alert-dismissible fade
+          className={`alert alert-${alert.type} alert-dismissible fade
           show`}
           role="alert"
         >
-          <strong>{capitalize(props.alert.type)}</strong>: {props.alert.msg}
+          <strong>{capitalize(alert.type)}</strong>: {alert.msg}
         </div>
       )}
     </div>

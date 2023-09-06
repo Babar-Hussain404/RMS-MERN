@@ -85,7 +85,7 @@ const Topnav = () => {
                 <div className="dropdown-divider"></div>
               </li>
               <li>
-                <a href='#' className="dropdown-item text-danger" >
+                <a href="#" className="dropdown-item text-danger">
                   <i className="bx bx-log-out me-2"></i>
                   <span className="align-middle">Log Out</span>
                 </a>
@@ -95,7 +95,6 @@ const Topnav = () => {
           {/*/ User */}
         </ul>
       </div>
-
     </nav>
   );
 };

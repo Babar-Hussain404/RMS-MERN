@@ -2,7 +2,7 @@ import React from "react";
 import Sidenav from "./Sidenav";
 import Topnav from "./Topnav";
 import Footer from "./Footer";
-import Alert from './Alert';
+import Alert from "./Alert";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
@@ -15,10 +15,6 @@ const Layout = () => {
           <Sidenav />
           {/*Menu */}
 
-          {/* Menu */}
-          <Alert />
-          {/*Menu */}
-
           {/* Layout container */}
           <div className="layout-page">
             {/*Top Navbar */}
@@ -28,6 +24,10 @@ const Layout = () => {
             {/* Content wrapper */}
             <div className="content-wrapper">
               
+              {/* Menu */}
+              <Alert />
+              {/*Menu */}
+
               {/* Content */}
               <Outlet />
 
