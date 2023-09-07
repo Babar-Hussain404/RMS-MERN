@@ -2,19 +2,19 @@ import React from "react";
 
 const Edit = () => {
   return (
-    <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="fw-bold mb-3">
-        <span class="text-muted fw-light"> Dashboard / @(Model.Type)s </span> /
+    <div classname="container-xxl flex-grow-1 container-p-y">
+      <h4 classname="fw-bold mb-3">
+        <span classname="text-muted fw-light"> Dashboard / @(Model.Type)s </span> /
         Edit @Model.Type
       </h4>
 
-      <div class="card">
-        <div class="card-header d-flex">
-          <h5 class="mx-auto my-3 text-upper">
+      <div classname="card">
+        <div classname="card-header d-flex">
+          <h5 classname="mx-auto my-3 text-upper">
             <strong> Edit @Model.Type </strong>
           </h5>
         </div>
-        <div class="card-body">
+        <div classname="card-body">
           <form
             asp-controller="Residences"
             asp-action="Edit"
@@ -25,62 +25,62 @@ const Edit = () => {
           >
             <input type="hidden" asp-for="Id" />
 
-            <div class="row">
+            <div classname="row">
               {/* Residence Name */}
-              <div class="col-md-6 mb-3">
-                <label class="form-label" asp-for="Name"></label>
-                <div class="input-group input-group-merge">
-                  <span id="basic-icon-residence-name" class="input-group-text">
-                    <i class="bx bx-building"></i>
+              <div classname="col-md-6 mb-3">
+                <label classname="form-label" asp-for="Name"></label>
+                <div classname="input-group input-group-merge">
+                  <span id="basic-icon-residence-name" classname="input-group-text">
+                    <i classname="bx bx-building"></i>
                   </span>
                   <input
                     asp-for="Name"
                     value="@Model.Name"
-                    class="form-control"
+                    classname="form-control"
                     id="basic-icon-default-fullname"
                     placeholder="Pk Resorts"
                     aria-label="Pk name"
                     aria-describedby="basic-icon-default-residence-name"
                   />
                 </div>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" classname="text-danger"></span>
               </div>
 
               {/* Owner Name */}
-              <div class="col-md-6 mb-3">
-                <label class="form-label" asp-for="Owner"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-6 mb-3">
+                <label classname="form-label" asp-for="Owner"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-owner-name"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-user"></i>
+                    <i classname="bx bx-user"></i>
                   </span>
                   <input
                     asp-for="Owner"
                     value="@Model.Owner"
-                    class="form-control"
+                    classname="form-control"
                     id="basic-icon-residence-owner-name"
                     placeholder="John doe"
                     aria-label="John doe"
                     aria-describedby="basic-icon-default-residence-Owner-name"
                   />
                 </div>
-                <span asp-validation-for="Owner" class="text-danger"></span>
+                <span asp-validation-for="Owner" classname="text-danger"></span>
               </div>
 
               {/* Type */}
-              <div class="col-md-6 mb-3">
-                <label asp-for="Type" class="form-label"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-6 mb-3">
+                <label asp-for="Type" classname="form-label"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-owner-name"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-slider"></i>
+                    <i classname="bx bx-slider"></i>
                   </span>
                   <select
-                    class="form-select"
+                    classname="form-select"
                     asp-for="Type"
                     aria-label="Select Residence Type"
                   >
@@ -91,21 +91,21 @@ const Edit = () => {
                     <option value="House">House</option>
                   </select>
                 </div>
-                <span asp-validation-for="Type" class="text-danger"></span>
+                <span asp-validation-for="Type" classname="text-danger"></span>
               </div>
 
               {/* Shared */}
-              <div class="col-md-3 mb-3">
-                <label asp-for="Shared" class="form-label"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-3 mb-3">
+                <label asp-for="Shared" classname="form-label"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-owner-name"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-group"></i>
+                    <i classname="bx bx-group"></i>
                   </span>
                   <select
-                    class="form-select"
+                    classname="form-select"
                     asp-for="Shared"
                     aria-label="Select Residence Type"
                   >
@@ -115,23 +115,23 @@ const Edit = () => {
                     </option>
                   </select>
                 </div>
-                <span asp-validation-for="Shared" class="text-danger"></span>
+                <span asp-validation-for="Shared" classname="text-danger"></span>
               </div>
 
               {/* Rooms */}
-              <div class="col-md-3 mb-3">
-                <label class="form-label" asp-for="Rooms"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-3 mb-3">
+                <label classname="form-label" asp-for="Rooms"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-rooms"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-minus-front"></i>
+                    <i classname="bx bx-minus-front"></i>
                   </span>
                   <input
                     type="number"
                     value="@Model.Rooms"
-                    class="form-control"
+                    classname="form-control"
                     id="Rooms"
                     name="Rooms"
                     placeholder="5"
@@ -139,43 +139,43 @@ const Edit = () => {
                     aria-describedby="basic-icon-residence-rooms"
                   />
                 </div>
-                <span asp-validation-for="Rooms" class="text-danger"></span>
+                <span asp-validation-for="Rooms" classname="text-danger"></span>
               </div>
 
               {/* Location */}
-              <div class="col-lg-6 mb-3">
-                <label class="form-label" asp-for="Location"></label>
-                <div class="input-group input-group-merge">
-                  <span id="basic-icon-map-pin" class="input-group-text">
-                    <i class="bx bxs-map-pin"></i>
+              <div classname="col-lg-6 mb-3">
+                <label classname="form-label" asp-for="Location"></label>
+                <div classname="input-group input-group-merge">
+                  <span id="basic-icon-map-pin" classname="input-group-text">
+                    <i classname="bx bxs-map-pin"></i>
                   </span>
                   <input
                     asp-for="Location"
                     value="@Model.Location"
-                    class="form-control"
+                    classname="form-control"
                     id="basic-icon-location"
                     placeholder="Township, Lahore, Pakistan."
                     aria-label="Pk Resorts"
                     aria-describedby="basic-icon-location"
                   />
                 </div>
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <span asp-validation-for="Location" classname="text-danger"></span>
               </div>
 
               {/* Price */}
-              <div class="col-md-3 mb-3">
-                <label class="form-label" asp-for="Price"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-3 mb-3">
+                <label classname="form-label" asp-for="Price"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-Price"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-wallet"></i>
+                    <i classname="bx bx-wallet"></i>
                   </span>
                   <input
                     type="number"
                     value="@Model.Price"
-                    class="form-control"
+                    classname="form-control"
                     id="Price"
                     name="Price"
                     placeholder="Rs. 500"
@@ -183,21 +183,21 @@ const Edit = () => {
                     aria-describedby="basic-icon-residence-Price"
                   />
                 </div>
-                <span asp-validation-for="Price" class="text-danger"></span>
+                <span asp-validation-for="Price" classname="text-danger"></span>
               </div>
 
               {/* Price Type */}
-              <div class="col-md-3 mb-3">
-                <label asp-for="PriceType" class="form-label"></label>
-                <div class="input-group input-group-merge">
+              <div classname="col-md-3 mb-3">
+                <label asp-for="PriceType" classname="form-label"></label>
+                <div classname="input-group input-group-merge">
                   <span
                     id="basic-icon-residence-owner-name"
-                    class="input-group-text"
+                    classname="input-group-text"
                   >
-                    <i class="bx bx-time"></i>
+                    <i classname="bx bx-time"></i>
                   </span>
                   <select
-                    class="form-select"
+                    classname="form-select"
                     asp-for="PriceType"
                     aria-label="Select Price Type"
                   >
@@ -207,22 +207,22 @@ const Edit = () => {
                     </option>
                   </select>
                 </div>
-                <span asp-validation-for="PriceType" class="text-danger"></span>
+                <span asp-validation-for="PriceType" classname="text-danger"></span>
               </div>
             </div>
 
             {/* Facilities */}
-            <div class="mb-3">
-              <div class="mb-3">
-                <label class="form-label" for="basic-icon-residence-facilities">
+            <div classname="mb-3">
+              <div classname="mb-3">
+                <label classname="form-label" for="basic-icon-residence-facilities">
                   Facilities
                 </label>
 
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-check form-switch mb-2">
+                <div classname="row">
+                  <div classname="col-md-4">
+                    <div classname="form-check form-switch mb-2">
                       <input
-                        class="form-check-input check"
+                        classname="form-check-input check"
                         type="checkbox"
                         name="Facilities[@i].IsSelected"
                         id="Facilities[@i].IsSelected"
@@ -245,10 +245,10 @@ const Edit = () => {
                         hidden
                       />
                       <label
-                        class="form-check-label btn btn-outline-primary w-100 text-start"
+                        classname="form-check-label btn btn-outline-primary w-100 text-start"
                         for="Facilities[@i].IsSelected"
                       >
-                        <i class="@Model.Facilities[i].Icon"></i>
+                        <i classname="@Model.Facilities[i].Icon"></i>
                         &nbsp;@Model.Facilities[i].Name
                       </label>
                     </div>
@@ -257,99 +257,99 @@ const Edit = () => {
               </div>
             </div>
 
-            <div class="row">
+            <div classname="row">
               {/* Phone No */}
-              <div class="col-md-6 mb-3">
-                <label class="form-label" asp-for="Phoneno"></label>
-                <div class="input-group input-group-merge">
-                  <span id="basic-icon-default-phone2" class="input-group-text">
-                    <i class="bx bx-phone"></i>
+              <div classname="col-md-6 mb-3">
+                <label classname="form-label" asp-for="Phoneno"></label>
+                <div classname="input-group input-group-merge">
+                  <span id="basic-icon-default-phone2" classname="input-group-text">
+                    <i classname="bx bx-phone"></i>
                   </span>
                   <input
                     asp-for="Phoneno"
                     value="@Model.Phoneno"
-                    class="form-control"
+                    classname="form-control"
                     placeholder="0300 1234567"
                   />
                 </div>
-                <div class="form-text">Phone no must be 11 digits.</div>
-                <span asp-validation-for="Phoneno" class="text-danger"></span>
+                <div classname="form-text">Phone no must be 11 digits.</div>
+                <span asp-validation-for="Phoneno" classname="text-danger"></span>
               </div>
 
               {/* Email */}
-              <div class="col-md-6 mb-3">
-                <label class="form-label" asp-for="Email"></label>
-                <div class="input-group input-group-merge">
-                  <span class="input-group-text">
-                    <i class="bx bx-envelope"></i>
+              <div classname="col-md-6 mb-3">
+                <label classname="form-label" asp-for="Email"></label>
+                <div classname="input-group input-group-merge">
+                  <span classname="input-group-text">
+                    <i classname="bx bx-envelope"></i>
                   </span>
                   <input
                     asp-for="Email"
                     value="@Model.Email"
                     id="basic-icon-default-email"
-                    class="form-control"
+                    classname="form-control"
                     placeholder="Pk.Resorts@example.com"
                     aria-label="Pk.Resorts@example.com"
                     aria-describedby="basic-icon-default-email"
                   />
                   <span
                     id="basic-icon-default-email"
-                    class="input-group-text"
+                    classname="input-group-text"
                   ></span>
                 </div>
-                <div class="form-text">
+                <div classname="form-text">
                   You can use letters, numbers & periods
                 </div>
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" classname="text-danger"></span>
               </div>
             </div>
 
             {/* Description */}
-            <div class="mb-3">
-              <label class="form-label" asp-for="Description"></label>
-              <div class="input-group input-group-merge">
-                <span id="basic-icon-default-message2" class="input-group-text">
-                  <i class="bx bxs-detail"></i>
+            <div classname="mb-3">
+              <label classname="form-label" asp-for="Description"></label>
+              <div classname="input-group input-group-merge">
+                <span id="basic-icon-default-message2" classname="input-group-text">
+                  <i classname="bx bxs-detail"></i>
                 </span>
                 <textarea
                   id="Description"
                   asp-for="Description"
                   value="@Model.Description"
-                  class="form-control"
+                  classname="form-control"
                   placeholder="Write about your Residence..."
                   aria-label="Write about your Residence..."
                   aria-describedby="basic-icon-default-description"
                 ></textarea>
               </div>
-              <span asp-validation-for="Description" class="text-danger"></span>
+              <span asp-validation-for="Description" classname="text-danger"></span>
             </div>
 
-            <div class="row">
+            <div classname="row">
               {/* Select Residence Image */}
-              <div class="col-md-9 my-2">
-                <label asp-for="ResidenceImage" class="form-label">
+              <div classname="col-md-9 my-2">
+                <label asp-for="ResidenceImage" classname="form-label">
                   Select Residence Image
                 </label>
                 <input
-                  class="form-control"
+                  classname="form-control"
                   type="file"
                   asp-for="ResidenceImage"
                   required
                 />
                 <span
                   asp-validation-for="ResidenceImage"
-                  class="text-danger"
+                  classname="text-danger"
                 ></span>
               </div>
 
               {/* Residence Image Preview */}
-              <div class="col-md-3 my-2">
+              <div classname="col-md-3 my-2">
                 {/*  Display the preselected image  */}
 
                 <img
                   src="/assets/img/buildings/Hotel/Hotel-1.png"
                   alt="Residence Image"
-                  class="d-block rounded"
+                  classname="d-block rounded"
                   height="100"
                   width="100"
                 />
@@ -357,17 +357,17 @@ const Edit = () => {
             </div>
 
             {/* Buttons */}
-            <div class="row justify-content-center">
-              <div class="col-md-6 btn-group my-3">
-                <button type="submit" class="btn btn-primary ">
-                  <span class="tf-icons bx bx-save"></span>&nbsp;Save
+            <div classname="row justify-content-center">
+              <div classname="col-md-6 btn-group my-3">
+                <button type="submit" classname="btn btn-primary ">
+                  <span classname="tf-icons bx bx-save"></span>&nbsp;Save
                 </button>
 
                 <a
                   asp-action="@Model.Type"
-                  class="btn btn-outline-secondary w-25 "
+                  classname="btn btn-outline-secondary w-25 "
                 >
-                  <span class="tf-icons bx bx-right-arrow-alt"></span>&nbsp;Back
+                  <span classname="tf-icons bx bx-right-arrow-alt"></span>&nbsp;Back
                 </a>
               </div>
             </div>

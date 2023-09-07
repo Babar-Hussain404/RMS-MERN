@@ -3,43 +3,43 @@ import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
-    <div class="container-xxl">
-      <div class="authentication-wrapper authentication-basic container-p-y">
-        <div class="authentication-inner">
+    <div classname="container-xxl">
+      <div classname="authentication-wrapper authentication-basic container-p-y">
+        <div classname="authentication-inner">
           <partial name="_Alerts" />
 
           {/*  Register Card */}
-          <div class="card">
-            <div class="card-body">
+          <div classname="card">
+            <div classname="card-body">
               {/*  Logo */}
               <partial name="_Logo" />
               {/*  /Logo */}
 
-              <h4 class="mb-2">Adventure starts here 🚀</h4>
-              <p class="mb-4">
+              <h4 classname="mb-2">Adventure starts here 🚀</h4>
+              <p classname="mb-4">
                 Book or Advertise your Residence easily and Quickly!
               </p>
 
               <form
                 id="formAuthentication"
-                class="mb-3"
+                classname="mb-3"
                 method="post"
                 enctype="multipart/form-data"
                 asp-controller="Users"
                 asp-action="Register"
               >
-                <div class="row">
+                <div classname="row">
                   <div
                     asp-validation-summary="ModelOnly"
-                    class="text-danger"
+                    classname="text-danger"
                   ></div>
 
                   {/* First Name*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="FName" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="FName" classname="form-label"></label>
                     <input
                       asp-for="FName"
-                      class="form-control"
+                      classname="form-control"
                       id="FName"
                       name="FName"
                       value="John"
@@ -47,80 +47,80 @@ const Register = () => {
                       required
                       autofocus
                     />
-                    <span asp-validation-for="FName" class="text-danger"></span>
+                    <span asp-validation-for="FName" classname="text-danger"></span>
                   </div>
 
                   {/* Last Name*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="LName" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="LName" classname="form-label"></label>
                     <input
                       asp-for="LName"
-                      class="form-control"
+                      classname="form-control"
                       id="LName"
                       name="LName"
                       value="Doe"
                       placeholder="Enter Last Name"
                       required
                     />
-                    <span asp-validation-for="LName" class="text-danger"></span>
+                    <span asp-validation-for="LName" classname="text-danger"></span>
                   </div>
 
                   {/* Email*/}
-                  <div class="mb-3">
-                    <label asp-for="Email" class="form-label"></label>
+                  <div classname="mb-3">
+                    <label asp-for="Email" classname="form-label"></label>
                     <input
                       asp-for="Email"
-                      class="form-control"
+                      classname="form-control"
                       id="Email"
                       name="Email"
                       placeholder="Enter your email"
                     />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span asp-validation-for="Email" classname="text-danger"></span>
                   </div>
 
                   {/* Password*/}
-                  <div class="mb-3 form-password-toggle">
-                    <label class="form-label" asp-for="Password"></label>
-                    <div class="input-group input-group-merge">
+                  <div classname="mb-3 form-password-toggle">
+                    <label classname="form-label" asp-for="Password"></label>
+                    <div classname="input-group input-group-merge">
                       <input
                         asp-for="Password"
                         id="Password"
-                        class="form-control"
+                        classname="form-control"
                         name="Password"
                         value="pass999"
                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                         aria-describedby="password"
                       />
-                      <span class="input-group-text cursor-pointer">
-                        <i class="bx bx-hide"></i>
+                      <span classname="input-group-text cursor-pointer">
+                        <i classname="bx bx-hide"></i>
                       </span>
                       <span
                         asp-validation-for="Password"
-                        class="text-danger"
+                        classname="text-danger"
                       ></span>
                     </div>
-                    <p class="form-text">
+                    <p classname="form-text">
                       Must contain atleast one letter and one digit.
                     </p>
                   </div>
 
                   {/* Date Of Birth*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="DOB" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="DOB" classname="form-label"></label>
                     <input
                       asp-for="DOB"
-                      class="form-control"
+                      classname="form-control"
                       type="date"
                       name="DOB"
                     />
-                    <span asp-validation-for="DOB" class="text-danger"></span>
+                    <span asp-validation-for="DOB" classname="text-danger"></span>
                   </div>
 
                   {/* Gender*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="Gender" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="Gender" classname="form-label"></label>
                     <select
-                      class="form-select"
+                      classname="form-select"
                       id="Gender"
                       aria-label="Default select example"
                       name="Gender"
@@ -134,27 +134,27 @@ const Register = () => {
                   </div>
 
                   {/* CNIC*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="CNIC" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="CNIC" classname="form-label"></label>
                     <input
                       asp-for="CNIC"
-                      class="form-control"
+                      classname="form-control"
                       id="CNIC"
                       name="CNIC"
                       value="12345-1234567-1"
                       placeholder="12345-1234567-1"
                     />
-                    <span asp-validation-for="CNIC" class="text-danger"></span>
-                    <p class="form-text">
+                    <span asp-validation-for="CNIC" classname="text-danger"></span>
+                    <p classname="form-text">
                       Follow this pattern (xxxxx-xxxxxx-x)
                     </p>
                   </div>
 
                   {/* UserType*/}
-                  <div class="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="UserType" class="form-label"></label>
+                  <div classname="col-md-12 col-lg-6 mb-3">
+                    <label asp-for="UserType" classname="form-label"></label>
                     <select
-                      class="form-select"
+                      classname="form-select"
                       id="name="
                       aria-label="Default select example"
                       name="UserType"
@@ -168,39 +168,39 @@ const Register = () => {
                   </div>
 
                   {/* Phone No*/}
-                  <div class="mb-3">
-                    <label class="form-label" asp-for="Phoneno"></label>
-                    <div class="input-group input-group-merge">
+                  <div classname="mb-3">
+                    <label classname="form-label" asp-for="Phoneno"></label>
+                    <div classname="input-group input-group-merge">
                       <span
                         id="basic-icon-default-phone2"
-                        class="input-group-text"
+                        classname="input-group-text"
                       >
-                        <i class="bx bx-phone"></i>
+                        <i classname="bx bx-phone"></i>
                       </span>
                       <input
                         asp-for="Phoneno"
-                        class="form-control"
+                        classname="form-control"
                         value="03001234567"
                         placeholder="0300 1234567"
                       />
                     </div>
-                    <div class="form-text">Phone no must be 11 digits.</div>
+                    <div classname="form-text">Phone no must be 11 digits.</div>
                     <span
                       asp-validation-for="Phoneno"
-                      class="text-danger"
+                      classname="text-danger"
                     ></span>
                   </div>
 
                   {/* Location*/}
-                  <div class="mb-3">
-                    <label class="form-label" asp-for="Address"></label>
-                    <div class="input-group input-group-merge">
-                      <span id="basic-icon-map-pin" class="input-group-text">
-                        <i class="bx bxs-map-pin"></i>
+                  <div classname="mb-3">
+                    <label classname="form-label" asp-for="Address"></label>
+                    <div classname="input-group input-group-merge">
+                      <span id="basic-icon-map-pin" classname="input-group-text">
+                        <i classname="bx bxs-map-pin"></i>
                       </span>
                       <input
                         asp-for="Address"
-                        class="form-control"
+                        classname="form-control"
                         id="basic-icon-location"
                         value="Township, Lahore, Pakistan."
                         placeholder="Township, Lahore, Pakistan."
@@ -210,39 +210,39 @@ const Register = () => {
                     </div>
                     <span
                       asp-validation-for="Address"
-                      class="text-danger"
+                      classname="text-danger"
                     ></span>
                   </div>
 
                   {/* Profile picture*/}
-                  <div class="mb-3">
-                    <label asp-for="ProfilePic" class="form-label"></label>
+                  <div classname="mb-3">
+                    <label asp-for="ProfilePic" classname="form-label"></label>
                     <input
                       asp-for="ProfilePic"
                       type="file"
-                      class="form-control"
+                      classname="form-control"
                       id="ProfilePic"
                     />
                     <span
                       asp-validation-for="ProfilePic"
-                      class="text-danger"
+                      classname="text-danger"
                     ></span>
-                    <p class="form-text">
+                    <p classname="form-text">
                       Allowed JPG, GIF or PNG. Max size of 800K
                     </p>
                   </div>
 
                   {/* Terms And Conditions*/}
-                  <div class="mb-3">
-                    <div class="form-check">
+                  <div classname="mb-3">
+                    <div classname="form-check">
                       <input
-                        class="form-check-input"
+                        classname="form-check-input"
                         type="checkbox"
                         id="terms-conditions"
                         asp-for="TermsAndConditions"
                       />
                       <label
-                        class="form-check-label"
+                        classname="form-check-label"
                         asp-for="TermsAndConditions"
                       >
                         I agree to{" "}
@@ -253,18 +253,18 @@ const Register = () => {
                       <br />
                       <span
                         asp-validation-for="TermsAndConditions"
-                        class="text-danger"
+                        classname="text-danger"
                       ></span>
                     </div>
                   </div>
 
-                  <button type="submit" class="btn btn-primary d-grid w-100">
+                  <button type="submit" classname="btn btn-primary d-grid w-100">
                     Register
                   </button>
                 </div>
               </form>
 
-              <p class="text-center">
+              <p classname="text-center">
                 <span>Already have an account?</span>
                 <Link to='/login'>
                   <span>Login in instead</span>

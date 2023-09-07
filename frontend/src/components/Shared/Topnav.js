@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom'
 
 const Topnav = () => {
   return (
@@ -70,16 +71,16 @@ const Topnav = () => {
                 <div className="dropdown-divider"></div>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to='/profile'>
                   <i className="bx bx-user me-2"></i>
                   <span className="align-middle">My Profile</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <Link className="dropdown-item" to='/setting'>
                   <i className="bx bx-cog me-2"></i>
                   <span className="align-middle">Settings</span>
-                </a>
+                </Link>
               </li>
               <li>
                 <div className="dropdown-divider"></div>

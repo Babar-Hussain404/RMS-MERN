@@ -9,6 +9,8 @@ import ContactUs from "./components/Home/ContactUs";
 import Detail from './components/Residences/Detail';
 import Delete from './components/Residences/Delete';
 import Login from "./components/Authorization/Login";
+import Setting from "./components/Authorization/Setting";
+import Profile from "./components/Authorization/Profile";
 import Register from "./components/Authorization/Register";
 import PrivacyPolicy from "./components/Home/PrivacyPolicy";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -22,6 +24,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             {/* Authentication */}
             <Route path="login" element={<Login />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="setting" element={<Setting />} />
             <Route path="register" element={<Register />} />
 
             {/* Home */}
