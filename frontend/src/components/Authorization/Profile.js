@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
+import alertContext from "../../context/alerts/alertContext";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+  const { showAlert } = useContext(alertContext);
+
+  const getUser = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/getuser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+      });
+      const userData = await response.json();
+      setUser(userData); // Update the user state with the fetched data
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUser();
+    } else {
+      navigate("/login");
+      showAlert(`Please login to view profile`, "info");
+    }
+  }, []);
+
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
       <h4 className="fw-bold mb-3">
         <span className="text-muted fw-light">Dashboard /</span> Profile
       </h4>
-
-      <partial name="_Alerts" />
 
       <div className="card">
         <div className="card-header d-flex">
@@ -22,7 +51,7 @@ const Profile = () => {
               <div className="col-md-5">
                 {/* User Type */}
                 <h5 className="d-flex justify-content-center text-primary">
-                  <strong className="display-6">@Model.UserType</strong>
+                  <strong className="display-6">{user.UserType}</strong>
                 </h5>
 
                 {/* Photo */}
@@ -39,13 +68,11 @@ const Profile = () => {
 
                 {/* Buttons */}
                 <div className="d-flex justify-content-around mb-2">
-                  <a
-                    asp-controller="Users"
-                    asp-action="Update"
+                  <Link to='/updateprofile'
                     className="btn btn-info"
                   >
                     <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -61,29 +88,29 @@ const Profile = () => {
                   <div className="fw-bold">Basic Information</div>
                   <div className="row">
                     <div className="col-sm-3">First Name:</div>
-                    <div className="col-sm-9">@Model.FName</div>
+                    <div className="col-sm-9">{user.FName}</div>
 
                     <div className="col-sm-3">Last Name:</div>
-                    <div className="col-sm-9">@Model.LName</div>
+                    <div className="col-sm-9">{user.LName}</div>
 
                     <div className="col-sm-3">Gender:</div>
-                    <div className="col-sm-9">@Model.Gender</div>
+                    <div className="col-sm-9">{user.Gender}</div>
 
                     <div className="col-sm-3">CNIC:</div>
-                    <div className="col-sm-9">@Model.CNIC</div>
+                    <div className="col-sm-9">{user.CNIC}</div>
                   </div>
 
                   {/* Contact Information */}
                   <div className="fw-bold mt-2">Contact Information</div>
                   <div className="row">
                     <div className="col-sm-3">Phone no:</div>
-                    <div className="col-sm-9 mb-1">@Model.Phoneno</div>
+                    <div className="col-sm-9 mb-1">{user.Phoneno}</div>
 
                     <div className="col-sm-3">Email:</div>
-                    <div className="col-sm-9 mb-1">@Model.Email</div>
+                    <div className="col-sm-9 mb-1">{user.Email}</div>
 
                     <div className="col-sm-3">Address:</div>
-                    <div className="col-sm-9 mb-1">@Model.Address</div>
+                    <div className="col-sm-9 mb-1">{user.Address}</div>
                   </div>
                 </div>
               </div>

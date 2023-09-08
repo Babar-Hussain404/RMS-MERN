@@ -1,7 +1,11 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Topnav = () => {
+  const logOut = () => {
+    localStorage.removeItem("token");
+  };
+
   return (
     <nav
       className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
@@ -71,13 +75,13 @@ const Topnav = () => {
                 <div className="dropdown-divider"></div>
               </li>
               <li>
-                <Link className="dropdown-item" to='/profile'>
+                <Link className="dropdown-item" to="/profile">
                   <i className="bx bx-user me-2"></i>
                   <span className="align-middle">My Profile</span>
                 </Link>
               </li>
               <li>
-                <Link className="dropdown-item" to='/setting'>
+                <Link className="dropdown-item" to="/setting">
                   <i className="bx bx-cog me-2"></i>
                   <span className="align-middle">Settings</span>
                 </Link>
@@ -86,10 +90,10 @@ const Topnav = () => {
                 <div className="dropdown-divider"></div>
               </li>
               <li>
-                <a href="#" className="dropdown-item text-danger">
+                <button onClick={logOut} className="dropdown-item text-danger">
                   <i className="bx bx-log-out me-2"></i>
                   <span className="align-middle">Log Out</span>
-                </a>
+                </button>
               </li>
             </ul>
           </li>
