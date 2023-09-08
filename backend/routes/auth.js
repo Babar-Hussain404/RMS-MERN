@@ -68,12 +68,8 @@ router.post("/register",
 
 //Route 2:  Authenticator a User using: POST "/api/auth/login" No login required
 router.post("/login",
-  [
-    //Validations
-    body("email", "Enter a valid Email").isEmail(),
-    body("password", "Password can not be blank").exists(),
-  ],
-  //Validation errors
+  
+//Validation errors
   async (req, res) => {
     let success = false;
 
@@ -82,12 +78,9 @@ router.post("/login",
       return res.status(400).json({success: success, errors: errors.array() });
     }
 
-    //get email and password from request body
-    const { email, password } = req.body;
-
     try {
       //Find user in database
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ Email: req.body.Email });
       if (!user) {
         success = false;
         return res
@@ -96,7 +89,7 @@ router.post("/login",
       }
 
       //Compare user's password with password stored on database
-      const passwordCompare = await bcrypt.compare(password, user.password);
+      const passwordCompare = await bcrypt.compare(req.body.Password , user.Password);
       if (!passwordCompare) {
         success = false;
         return res

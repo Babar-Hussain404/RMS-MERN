@@ -1,278 +1,346 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import Logo from "../Shared/Logo";
+import { Link, useNavigate } from "react-router-dom";
+import alertContext from "../../context/alerts/alertContext";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { showAlert } = useContext(alertContext);
+
+  const [formData, setFormData] = useState({
+    FName: "John",
+    LName: "Doe",
+    Email: "john.doe@example.com",
+    Password: "pass123",
+    DOB: "1990-01-01",
+    Gender: "Other", // Set a default value
+    UserType: "Customer", // Set a default value
+    CNIC: "12345-6789012-3",
+    Phoneno: "12345678901",
+    Address: "123 Main Street",
+    ProfilePic: "profile_pic_url.jpg",
+    TermsAndConditions: true,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // const handleFileChange = async (e) => {
+  //   const selectedFile = e.target.files[0];
+  //   const base64String = await convertFileToBase64(selectedFile);
+  //   setFormData({
+  //     ...formData,
+  //     imageUrl: base64String,
+  //   });
+  // };
+
+  // const convertFileToBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onload = () => resolve(reader.result);
+  //     reader.onerror = (error) => reject(error);
+  //   });
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData.ProfilePic);
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(response);
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data);
+      } else {
+        showAlert(`HTTP error! status: ${response.status}`, "danger");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      if (data.success) {
+        localStorage.setItem("token", data.authtoken);
+        navigate("/");
+        showAlert("Account Created Successfully", "success");
+      }
+    } catch (error) {
+      console.error("Error registering user:", error);
+      showAlert(`Error registering user: ${error}`, "danger");
+    }
+  };
+
   return (
-    <div classname="container-xxl">
-      <div classname="authentication-wrapper authentication-basic container-p-y">
-        <div classname="authentication-inner">
-          <partial name="_Alerts" />
+    <div className="container-xxl">
+      <div className="authentication-wrapper authentication-basic container-p-y">
+        <div className="authentication-inner">
+          <div className="card">
+            <div className="card-body">
+              {/* Logo */}
+              <Logo />
+              {/* Logo */}
 
-          {/*  Register Card */}
-          <div classname="card">
-            <div classname="card-body">
-              {/*  Logo */}
-              <partial name="_Logo" />
-              {/*  /Logo */}
-
-              <h4 classname="mb-2">Adventure starts here 🚀</h4>
-              <p classname="mb-4">
+              <h4 className="mb-2">Adventure starts here 🚀</h4>
+              <p className="mb-4">
                 Book or Advertise your Residence easily and Quickly!
               </p>
 
-              <form
-                id="formAuthentication"
-                classname="mb-3"
-                method="post"
-                enctype="multipart/form-data"
-                asp-controller="Users"
-                asp-action="Register"
-              >
-                <div classname="row">
-                  <div
-                    asp-validation-summary="ModelOnly"
-                    classname="text-danger"
-                  ></div>
-
-                  {/* First Name*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="FName" classname="form-label"></label>
+              <form className="mb-3" onSubmit={handleSubmit}>
+                <div className="row">
+                  {/* First Name */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="FName" className="form-label">
+                      First Name
+                    </label>
                     <input
-                      asp-for="FName"
-                      classname="form-control"
+                      type="text"
+                      className="form-control"
                       id="FName"
                       name="FName"
-                      value="John"
+                      value={formData.FName}
+                      onChange={handleChange}
                       placeholder="Enter First Name"
                       required
-                      autofocus
+                      autoFocus
                     />
-                    <span asp-validation-for="FName" classname="text-danger"></span>
                   </div>
 
-                  {/* Last Name*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="LName" classname="form-label"></label>
+                  {/* Last Name */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="LName" className="form-label">
+                      Last Name
+                    </label>
                     <input
-                      asp-for="LName"
-                      classname="form-control"
+                      type="text"
+                      className="form-control"
                       id="LName"
                       name="LName"
-                      value="Doe"
+                      value={formData.LName}
+                      onChange={handleChange}
                       placeholder="Enter Last Name"
                       required
                     />
-                    <span asp-validation-for="LName" classname="text-danger"></span>
                   </div>
 
-                  {/* Email*/}
-                  <div classname="mb-3">
-                    <label asp-for="Email" classname="form-label"></label>
+                  {/* Email */}
+                  <div className="mb-3">
+                    <label htmlFor="Email" className="form-label">
+                      Email
+                    </label>
                     <input
-                      asp-for="Email"
-                      classname="form-control"
+                      type="email"
+                      className="form-control"
                       id="Email"
                       name="Email"
+                      value={formData.Email}
+                      onChange={handleChange}
                       placeholder="Enter your email"
                     />
-                    <span asp-validation-for="Email" classname="text-danger"></span>
                   </div>
 
-                  {/* Password*/}
-                  <div classname="mb-3 form-password-toggle">
-                    <label classname="form-label" asp-for="Password"></label>
-                    <div classname="input-group input-group-merge">
+                  {/* Password */}
+                  <div className="mb-3 form-password-toggle">
+                    <label htmlFor="Password" className="form-label">
+                      Password
+                    </label>
+                    <div className="input-group input-group-merge">
                       <input
-                        asp-for="Password"
+                        type="password"
+                        className="form-control"
                         id="Password"
-                        classname="form-control"
                         name="Password"
-                        value="pass999"
-                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                        value={formData.Password}
+                        onChange={handleChange}
+                        placeholder="••••••••"
                         aria-describedby="password"
                       />
-                      <span classname="input-group-text cursor-pointer">
-                        <i classname="bx bx-hide"></i>
-                      </span>
-                      <span
-                        asp-validation-for="Password"
-                        classname="text-danger"
-                      ></span>
                     </div>
-                    <p classname="form-text">
-                      Must contain atleast one letter and one digit.
+                    <p className="form-text">
+                      Must contain at least one letter and one digit.
                     </p>
                   </div>
 
-                  {/* Date Of Birth*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="DOB" classname="form-label"></label>
+                  {/* Date Of Birth */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="DOB" className="form-label">
+                      Date of Birth
+                    </label>
                     <input
-                      asp-for="DOB"
-                      classname="form-control"
                       type="date"
+                      className="form-control"
+                      id="DOB"
                       name="DOB"
+                      value={formData.DOB}
+                      onChange={handleChange}
                     />
-                    <span asp-validation-for="DOB" classname="text-danger"></span>
                   </div>
 
-                  {/* Gender*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="Gender" classname="form-label"></label>
+                  {/* Gender */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="Gender" className="form-label">
+                      Gender
+                    </label>
                     <select
-                      classname="form-select"
+                      className="form-select"
                       id="Gender"
-                      aria-label="Default select example"
                       name="Gender"
+                      value={formData.Gender}
+                      onChange={handleChange}
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
-                      <option selected value="Other">
-                        Other
-                      </option>
+                      <option value="Other">Other</option>
                     </select>
                   </div>
 
-                  {/* CNIC*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="CNIC" classname="form-label"></label>
+                  {/* CNIC */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="CNIC" className="form-label">
+                      CNIC
+                    </label>
                     <input
-                      asp-for="CNIC"
-                      classname="form-control"
+                      type="text"
+                      className="form-control"
                       id="CNIC"
                       name="CNIC"
-                      value="12345-1234567-1"
+                      value={formData.CNIC}
+                      onChange={handleChange}
                       placeholder="12345-1234567-1"
                     />
-                    <span asp-validation-for="CNIC" classname="text-danger"></span>
-                    <p classname="form-text">
+                    <p className="form-text">
                       Follow this pattern (xxxxx-xxxxxx-x)
                     </p>
                   </div>
 
-                  {/* UserType*/}
-                  <div classname="col-md-12 col-lg-6 mb-3">
-                    <label asp-for="UserType" classname="form-label"></label>
+                  {/* UserType */}
+                  <div className="col-md-12 col-lg-6 mb-3">
+                    <label htmlFor="UserType" className="form-label">
+                      User Type
+                    </label>
                     <select
-                      classname="form-select"
-                      id="name="
-                      aria-label="Default select example"
+                      className="form-select"
+                      id="UserType"
                       name="UserType"
+                      value={formData.UserType}
+                      onChange={handleChange}
                     >
                       <option value="Admin">Admin</option>
                       <option value="Owner">Owner</option>
-                      <option selected value="Customer">
-                        Customer
-                      </option>
+                      <option value="Customer">Customer</option>
                     </select>
                   </div>
 
-                  {/* Phone No*/}
-                  <div classname="mb-3">
-                    <label classname="form-label" asp-for="Phoneno"></label>
-                    <div classname="input-group input-group-merge">
+                  {/* Phone No */}
+                  <div className="mb-3">
+                    <label htmlFor="Phoneno" className="form-label">
+                      Phone Number
+                    </label>
+                    <div className="input-group input-group-merge">
                       <span
                         id="basic-icon-default-phone2"
-                        classname="input-group-text"
+                        className="input-group-text"
                       >
-                        <i classname="bx bx-phone"></i>
+                        <i className="bx bx-phone"></i>
                       </span>
                       <input
-                        asp-for="Phoneno"
-                        classname="form-control"
-                        value="03001234567"
+                        type="text"
+                        className="form-control"
+                        id="Phoneno"
+                        name="Phoneno"
+                        value={formData.Phoneno}
+                        onChange={handleChange}
                         placeholder="0300 1234567"
                       />
                     </div>
-                    <div classname="form-text">Phone no must be 11 digits.</div>
-                    <span
-                      asp-validation-for="Phoneno"
-                      classname="text-danger"
-                    ></span>
+                    <div className="form-text">Phone no must be 11 digits.</div>
                   </div>
 
-                  {/* Location*/}
-                  <div classname="mb-3">
-                    <label classname="form-label" asp-for="Address"></label>
-                    <div classname="input-group input-group-merge">
-                      <span id="basic-icon-map-pin" classname="input-group-text">
-                        <i classname="bx bxs-map-pin"></i>
+                  {/* Location */}
+                  <div className="mb-3">
+                    <label htmlFor="Address" className="form-label">
+                      Address
+                    </label>
+                    <div className="input-group input-group-merge">
+                      <span
+                        id="basic-icon-map-pin"
+                        className="input-group-text"
+                      >
+                        <i className="bx bxs-map-pin"></i>
                       </span>
                       <input
-                        asp-for="Address"
-                        classname="form-control"
-                        id="basic-icon-location"
-                        value="Township, Lahore, Pakistan."
+                        type="text"
+                        className="form-control"
+                        id="Address"
+                        name="Address"
+                        value={formData.Address}
+                        onChange={handleChange}
                         placeholder="Township, Lahore, Pakistan."
-                        aria-label="Pk Resorts"
-                        aria-describedby="basic-icon-location"
                       />
                     </div>
-                    <span
-                      asp-validation-for="Address"
-                      classname="text-danger"
-                    ></span>
                   </div>
 
-                  {/* Profile picture*/}
-                  <div classname="mb-3">
-                    <label asp-for="ProfilePic" classname="form-label"></label>
+                  {/* Profile picture */}
+                  <div className="mb-3">
+                    <label htmlFor="ProfilePic" className="form-label">
+                      Profile Picture
+                    </label>
                     <input
-                      asp-for="ProfilePic"
                       type="file"
-                      classname="form-control"
+                      accept="image/*"
+                      className="form-control"
                       id="ProfilePic"
+                      name="ProfilePic"
+                      onChange={handleChange}
                     />
-                    <span
-                      asp-validation-for="ProfilePic"
-                      classname="text-danger"
-                    ></span>
-                    <p classname="form-text">
-                      Allowed JPG, GIF or PNG. Max size of 800K
-                    </p>
                   </div>
 
-                  {/* Terms And Conditions*/}
-                  <div classname="mb-3">
-                    <div classname="form-check">
+                  {/* Terms And Conditions */}
+                  <div className="mb-3">
+                    <div className="form-check">
                       <input
-                        classname="form-check-input"
                         type="checkbox"
+                        className="form-check-input"
                         id="terms-conditions"
-                        asp-for="TermsAndConditions"
+                        name="TermsAndConditions"
+                        checked={formData.TermsAndConditions}
+                        onChange={handleChange}
                       />
                       <label
-                        classname="form-check-label"
-                        asp-for="TermsAndConditions"
+                        className="form-check-label"
+                        htmlFor="terms-conditions"
                       >
-                        I agree to{" "}
-                        <a asp-action="PrivacyPolicy" asp-controller="Home">
-                          privacy policy & terms
-                        </a>
+                        I agree to
+                        <a href="/privacy-policy">privacy policy & terms</a>
                       </label>
-                      <br />
-                      <span
-                        asp-validation-for="TermsAndConditions"
-                        classname="text-danger"
-                      ></span>
                     </div>
                   </div>
 
-                  <button type="submit" classname="btn btn-primary d-grid w-100">
+                  <button
+                    type="submit"
+                    className="btn btn-primary d-grid w-100"
+                  >
                     Register
                   </button>
                 </div>
               </form>
 
-              <p classname="text-center">
+              <p className="text-center">
                 <span>Already have an account?</span>
-                <Link to='/login'>
-                  <span>Login in instead</span>
+                <Link to="/login">
+                  <span>Login instead</span>
                 </Link>
               </p>
             </div>
           </div>
-          {/*  Register Card */}
         </div>
       </div>
     </div>

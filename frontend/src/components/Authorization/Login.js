@@ -1,107 +1,141 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Logo from "../Shared/Logo";
+import alertContext from "../../context/alerts/alertContext";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { showAlert } = useContext(alertContext);
+  const [loginData, setLoginData] = useState({
+    Email: "john.doe@example.com",
+    Password: "pass123",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      });
+      
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data);
+      } else {
+        showAlert(`HTTP error! status: ${response.status}`, "danger");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (data.success) {
+        localStorage.setItem("token", data.authtoken);
+        navigate("/");
+        showAlert("Logged in Successfully", "success");
+      }
+    } catch (error) {
+      console.error("Error loggin in:", error);
+      showAlert(`Error loggin in: ${error}`, "danger");
+    }
+  };
+
+
   return (
-    <div classname="container-xxl">
-      <div classname="authentication-wrapper authentication-basic container-p-y">
-        <div classname="authentication-inner">
-          <partial name="_Alerts" />
+    <div className="container-xxl">
+      <div className="authentication-wrapper authentication-basic container-p-y">
+        <div className="authentication-inner">
 
           {/*  Login  */}
-          <div classname="card">
-            <div classname="card-body">
+          <div className="card">
+            <div className="card-body">
               {/*  Logo  */}
-              <partial name="_Logo" />
+              <Logo />
               {/*  /Logo  */}
 
-              <h4 classname="mb-2">Welcome to REHAISH GAH! 👋</h4>
-              <p classname="mb-4">
+              <h4 className="mb-2">Welcome to REHAISH GAH! 👋</h4>
+              <p className="mb-4">
                 Please sign-in to your account and start the adventure
               </p>
 
-              <form
-                id="formAuthentication"
-                classname="mb-3"
-                method="post"
-                asp-controller="Users"
-                asp-action="Login"
-              >
-                <div
-                  asp-validation-summary="ModelOnly"
-                  classname="text-danger"
-                ></div>
-
+              <form className="mb-3" onSubmit={handleSubmit} >
+                
                 {/* Email */}
-                <div classname="mb-3">
-                  <label asp-for="Email" classname="form-label"></label>
-                  <input
-                    asp-for="Email"
-                    classname="form-control"
-                    id="Email"
-                    name="Email"
-                    placeholder="Enter your email"
-                    autocomplete="username"
-                    autofocus
-                  />
-                  <span asp-validation-for="Email" classname="text-danger"></span>
-                </div>
+                <div className="mb-3">
+                    <label htmlFor="Email" className="form-label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      id="Email"
+                      name="Email"
+                      value={loginData.Email}
+                      onChange={handleChange}
+                      placeholder="Enter your email"
+                    />
+                  </div>
 
                 {/* Password */}
-                <div classname="mb-3 form-password-toggle">
-                  <div classname="d-flex justify-content-between">
-                    <label classname="form-label" asp-for="Password"></label>
-                    <a asp-controller="Users" asp-action="ForgotPass">
+                <div className="mb-3 form-password-toggle">
+                  <div className="d-flex justify-content-between">
+                    <label className="form-label" htmlFor="Password"></label>
+                    <a href="#">
                       <small>Forgot Password?</small>
                     </a>
                   </div>
 
-                  <div classname="input-group input-group-merge">
+                  <div className="input-group input-group-merge">
                     <input
-                      asp-for="Password"
+                      type="password"
                       id="Password"
-                      classname="form-control"
+                      className="form-control"
                       name="Password"
-                      value="pass999"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      value={loginData.Password}
+                      onChange={handleChange}
+                      placeholder="••••••••"
                       aria-describedby="password"
-                      autocomplete="current-password"
-                    />
-                    <span classname="input-group-text cursor-pointer">
-                      <i classname="bx bx-hide"></i>
+                  />
+                    <span className="input-group-text cursor-pointer">
+                      <i className="bx bx-hide"></i>
                     </span>
-                    <span
-                      asp-validation-for="Password"
-                      classname="text-danger"
-                    ></span>
                   </div>
                 </div>
 
                 {/* Remember Me */}
-                <div classname="mb-3">
-                  <div classname="form-check">
+                <div className="mb-3">
+                  <div className="form-check">
                     <input
-                      classname="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       id="RememberMe"
                       asp-for="RememberMe"
                       name="RememberMe"
                     />
-                    <label classname="form-check-label" asp-for="RememberMe">
-                      {" "}
-                      Remember Me{" "}
+                    <label className="form-check-label" asp-for="RememberMe">
+                      Remember Me
                     </label>
                   </div>
                 </div>
 
-                <div classname="mb-3">
-                  <button classname="btn btn-primary d-grid w-100" type="submit">
+                <div className="mb-3">
+                  <button className="btn btn-primary d-grid w-100" type="submit">
                     Sign in
                   </button>
                 </div>
               </form>
 
-              <p classname="text-center">
+              <p className="text-center">
                 <span>New on our platform?</span>
                 <Link to='/register'>
                   <span>Create an account</span>
