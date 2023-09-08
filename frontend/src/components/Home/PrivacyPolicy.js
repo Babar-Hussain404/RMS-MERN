@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import alertContext from "../../context/alerts/alertContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 const PrivacyPolicy = () => {
-  const { showAlert } = useContext(alertContext);
+  const { showAlert } = useContext(AlertContext);
 
   useEffect(()=>{
     showAlert("You are viewing Privacy policy","info")

@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import Logo from "../Shared/Logo";
 import { Link, useNavigate } from "react-router-dom";
-import alertContext from "../../context/alerts/alertContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { showAlert } = useContext(alertContext);
+  const { showAlert } = useContext(AlertContext);
 
   const [formData, setFormData] = useState({
     FName: "John",

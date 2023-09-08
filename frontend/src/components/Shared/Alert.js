@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import alertContext from "../../context/alerts/alertContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 function Alert() {
-  const { alert } = useContext(alertContext)
+  const { alert } = useContext(AlertContext)
 
   const capitalize = (word) => {
     if(word === "danger"){

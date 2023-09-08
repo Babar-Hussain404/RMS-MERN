@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Shared/Logo";
-import alertContext from "../../context/alerts/alertContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { showAlert } = useContext(alertContext);
+  const { showAlert } = useContext(AlertContext);
   const [loginData, setLoginData] = useState({
     Email: "john.doe@example.com",
     Password: "pass123",

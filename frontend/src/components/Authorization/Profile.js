@@ -1,27 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
-import alertContext from "../../context/alerts/alertContext";
+import React, { useEffect, useContext } from "react";
+import AlertContext from "../../context/alerts/AlertContext";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/user/UserContext";
 
 const Profile = () => {
-  const [user, setUser] = useState({});
   const navigate = useNavigate();
-  const { showAlert } = useContext(alertContext);
-
-  const getUser = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/api/auth/getuser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
-      const userData = await response.json();
-      setUser(userData); // Update the user state with the fetched data
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { showAlert } = useContext(AlertContext);
+  const { user, getUser } = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {

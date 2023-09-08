@@ -1,9 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AlertCotext from "../../context/alerts/AlertContext";
 
 const Topnav = () => {
+  const navigate = useNavigate();
+  const { showAlert } = useContext(AlertCotext);
   const logOut = () => {
     localStorage.removeItem("token");
+    navigate("/login");
+    showAlert("You have been logged out", "info");
   };
 
   return (
