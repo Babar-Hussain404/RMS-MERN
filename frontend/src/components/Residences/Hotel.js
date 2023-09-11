@@ -24,7 +24,6 @@ const Hotel = () => {
 
       {/*  Cards */}
       <div className="row">
-        <partial name="_Alerts" />
 
         <div className="col-md-6 col-lg-4 mb-3">
           <div className="card h-100">

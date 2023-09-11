@@ -14,19 +14,19 @@ const Edit = () => {
 
         </div>
         <div className="card-body">
-            <form asp-controller="Residences" asp-action="Edit" asp-route-id="@Model.Id" id="sub" method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="Id" />
+            <form asp-controller="Residences" asp-action="Edit" asp-route-id="@Model.Id" id="sub" method="post" encType="multipart/form-data">
+                <input type="hidden" htmlFor="Id" />
 
                 <div className="row">
                     {/* Residence Name */}
                     <div className="col-md-6 mb-3">
 
-                        <label className="form-label" asp-for="Name"></label>
+                        <label className="form-label" htmlFor="Name"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-name" className="input-group-text">
                                 <i className='bx bx-building'></i>
                             </span>
-                            <input asp-for="Name"
+                            <input htmlFor="Name"
                                    value="@Model.Name"
                                    className="form-control"
                                    id="basic-icon-default-fullname"
@@ -41,12 +41,12 @@ const Edit = () => {
                     {/* Owner Name */}
                     <div className="col-md-6 mb-3">
 
-                        <label className="form-label" asp-for="Owner"></label>
+                        <label className="form-label" htmlFor="Owner"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-user'></i>
                             </span>
-                            <input asp-for="Owner"
+                            <input htmlFor="Owner"
                                    value="@Model.Owner"
                                    className="form-control"
                                    id="basic-icon-residence-owner-name"
@@ -61,12 +61,12 @@ const Edit = () => {
                     {/* Type */}
                     <div className="col-md-6 mb-3">
 
-                        <label asp-for="Type" className="form-label"></label>
+                        <label htmlFor="Type" className="form-label"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-slider'></i>
                             </span>
-                            <select className="form-select" asp-for="Type" aria-label="Select Residence Type">
+                            <select className="form-select" htmlFor="Type" aria-label="Select Residence Type">
                                 
                                     <option selected value="Hotel">Hotel</option>
                                     <option value="Hostel">Hostel</option>
@@ -81,12 +81,12 @@ const Edit = () => {
                     {/* Shared */}
                     <div className="col-md-3 mb-3">
 
-                        <label asp-for="Shared" className="form-label"></label>
+                        <label htmlFor="Shared" className="form-label"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-group'></i>
                             </span>
-                            <select className="form-select" asp-for="Shared" aria-label="Select Residence Type">
+                            <select className="form-select" htmlFor="Shared" aria-label="Select Residence Type">
                                
                                     <option selected value="No">No</option>
                                     <option value="Yes">Yes</option>
@@ -100,7 +100,7 @@ const Edit = () => {
                     {/* Rooms */}
                     <div className="col-md-3 mb-3">
 
-                        <label className="form-label" asp-for="Rooms"></label>
+                        <label className="form-label" htmlFor="Rooms"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-rooms" className="input-group-text">
                                 <i className='bx bx-minus-front'></i>
@@ -120,12 +120,12 @@ const Edit = () => {
 
                     {/* Location */}
                     <div className="col-lg-6 mb-3">
-                        <label className="form-label" asp-for="Location"></label>
+                        <label className="form-label" htmlFor="Location"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-map-pin" className="input-group-text">
                                 <i className='bx bxs-map-pin'></i>
                             </span>
-                            <input asp-for="Location"
+                            <input htmlFor="Location"
                                    value="@Model.Location"
                                    className="form-control"
                                    id="basic-icon-location"
@@ -139,7 +139,7 @@ const Edit = () => {
                     {/* Price */}
                     <div className="col-md-3 mb-3">
 
-                        <label className="form-label" asp-for="Price"></label>
+                        <label className="form-label" htmlFor="Price"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-Price" className="input-group-text">
                                 <i className='bx bx-wallet'></i>
@@ -160,12 +160,12 @@ const Edit = () => {
                     {/* Price Type */}
                     <div className="col-md-3 mb-3">
 
-                        <label asp-for="PriceType" className="form-label"></label>
+                        <label htmlFor="PriceType" className="form-label"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-time'></i>
                             </span>
-                            <select className="form-select" asp-for="PriceType" aria-label="Select Price Type">
+                            <select className="form-select" htmlFor="PriceType" aria-label="Select Price Type">
                                 
                                     <option selected value="/Month">Per Month</option>
                                     <option value="/Day">Per Day</option>
@@ -186,10 +186,10 @@ const Edit = () => {
 
                                 <div className="col-md-4">
                                     <div className="form-check form-switch mb-2">
-                                        <input className="form-check-input check" type="checkbox" name="Facilities[@i].IsSelected" id="Facilities[@i].IsSelected" value="true" />
-                                        <input type="hidden" asp-for="@Model.Facilities[i].FacilityId" />
-                                        <input type="text" asp-for="@Model.Facilities[i].Name" value="@Model.Facilities[i].Name" hidden />
-                                        <input type="text" asp-for="@Model.Facilities[i].Icon" value="@Model.Facilities[i].Icon" hidden />
+                                        <input className="form-check-input check" type="checkbox" name="Facilities[@i].IsSelected" id="Facilities[@i].IsSelected" />
+                                        <input type="hidden" htmlFor="@Model.Facilities[i].FacilityId" />
+                                        <input type="text" htmlFor="@Model.Facilities[i].Name" hidden />
+                                        <input type="text" htmlFor="@Model.Facilities[i].Icon" hidden />
                                         <label className="form-check-label btn btn-outline-primary w-100 text-start" for="Facilities[@i].IsSelected">
                                             <i className='@Model.Facilities[i].Icon'></i>
                                             &nbsp;@Model.Facilities[i].Name
@@ -205,12 +205,12 @@ const Edit = () => {
                 <div className="row">
                     {/* Phone No */}
                     <div className="col-md-6 mb-3">
-                        <label className="form-label" asp-for="Phoneno"></label>
+                        <label className="form-label" htmlFor="Phoneno"></label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-default-phone2" className="input-group-text">
                                 <i className="bx bx-phone"></i>
                             </span>
-                            <input asp-for="Phoneno"
+                            <input htmlFor="Phoneno"
                                    value="@Model.Phoneno"
                                    className="form-control"
                                    placeholder="0300 1234567" />
@@ -221,10 +221,10 @@ const Edit = () => {
 
                     {/* Email */}
                     <div className="col-md-6 mb-3">
-                        <label className="form-label" asp-for="Email"></label>
+                        <label className="form-label" htmlFor="Email"></label>
                         <div className="input-group input-group-merge">
                             <span className="input-group-text"><i className="bx bx-envelope"></i></span>
-                            <input asp-for="Email"
+                            <input htmlFor="Email"
                                    value="@Model.Email"
                                    id="basic-icon-default-email"
                                    className="form-control"
@@ -241,13 +241,13 @@ const Edit = () => {
 
                 {/* Description */}
                 <div className="mb-3">
-                    <label className="form-label" asp-for="Description"></label>
+                    <label className="form-label" htmlFor="Description"></label>
                     <div className="input-group input-group-merge">
                         <span id="basic-icon-default-message2" className="input-group-text">
                             <i className='bx bxs-detail'></i>
                         </span>
                         <textarea id="Description"
-                                  asp-for="Description"
+                                  htmlFor="Description"
                                   value="@Model.Description"
                                   className="form-control"
                                   placeholder="Write about your Residence..."
@@ -260,8 +260,8 @@ const Edit = () => {
                 <div className="row">
                     {/* Select Residence Image */}
                     <div className="col-md-9 my-2">
-                        <label asp-for="ResidenceImage" className="form-label">Select Residence Image</label>
-                        <input className="form-control" type="file" asp-for="ResidenceImage" required />
+                        <label htmlFor="ResidenceImage" className="form-label">Select Residence Image</label>
+                        <input className="form-control" type="file" htmlFor="ResidenceImage" required />
                         <span asp-validation-for="ResidenceImage" className="text-danger"></span>
                     </div>
 
@@ -269,7 +269,7 @@ const Edit = () => {
                     <div className="col-md-3 my-2">
                         
                                 <img src="/assets/img/buildings/Hotel/Hotel-1.png"
-                                     alt="Residence Image"
+                                     alt="Residence Pic"
                                      className="d-block rounded"
                                      height="100"
                                      width="100" />

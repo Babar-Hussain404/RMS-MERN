@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const Setting = () => {
   return (
@@ -61,13 +62,12 @@ const Setting = () => {
         <div className="card-body">
           <div>Click the button below to update your profile.</div>
           <div className="my-3 col-12 mb-0">
-            <a
-              asp-controller="Users"
-              asp-action="Update"
+            <Link
+              to="/"
               className="btn btn-infox-5 mx-4 btn-outline-info"
             >
               <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -102,7 +102,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck1"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -112,7 +112,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck2"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -125,7 +125,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck4"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -135,7 +135,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck5"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -148,7 +148,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck7"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -158,7 +158,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck8"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -171,7 +171,7 @@ const Setting = () => {
                       className="form-check-input"
                       type="checkbox"
                       id="defaultCheck10"
-                      checked
+                      defaultChecked
                     />
                   </div>
                 </td>
@@ -191,7 +191,7 @@ const Setting = () => {
 
         <div className="card-body">
           <h6>When should we send you notifications?</h6>
-          <form action="javascript:void(0);">
+          <form action="#">
             <div className="row">
               <div className="col-sm-6">
                 <select
@@ -199,7 +199,7 @@ const Setting = () => {
                   className="form-select"
                   name="sendNotification"
                 >
-                  <option selected>Only when I'm online</option>
+                  <option>Only when I'm online</option>
                   <option>Anytime</option>
                 </select>
               </div>

@@ -48,7 +48,6 @@ const Add = () => {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      console.log(formData.ResidencePic);
       try {
         const response = await fetch("http://localhost:5000/api/residences/addresidence", {
           method: "POST",
@@ -63,14 +62,13 @@ const Add = () => {
   
         if (response.ok) {
           console.log(data);
+          navigate("/hotel");
+          showAlert("Residence Created Successfully", "success");
         } else {
           showAlert(`HTTP error! status: ${response.status}`, "danger");
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        if (data.success) {
-          navigate("/hotel");
-          showAlert("Residence Created Successfully", "success");
-        }
+        
       } catch (error) {
         console.error("Error creating the residence:", error);
         showAlert(`Error registering user: ${error}`, "danger");

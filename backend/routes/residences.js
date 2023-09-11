@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
-const Residences = require("../models/Residence");
+const Residence = require("../models/Residence");
 
 //Route 1: Get all residences using: GET "/api/residences/getallresidences". Login required
 router.get("/getallresidences", fetchuser, async (req, res) => {
   try {
-    const residences = await Residences.find({ OwnerId: req.user.id });
+    const residences = await Residence.find({ OwnerId: req.user.id });
     res.json(residences);
-console.log(residences)
+    console.log(residences);
     //catch errors
   } catch (error) {
     console.error(error.message);
@@ -18,25 +18,45 @@ console.log(residences)
 });
 
 //Route 2: Add a new residence using: POST "/api/residences/addresidence". Login required
-router.post("/addresidence", fetchuser,
+router.post(
+  "/addresidence",
+  fetchuser,
   [
     // Validations
     body("Name", "Enter a valid Name").isLength({ min: 3 }),
     body("Owner", "Enter a valid Owner").isLength({ min: 3 }),
     body("Type", "Enter a valid Type").isLength({ min: 3 }),
-    body("Rooms", "Enter a valid number of Rooms").isNumeric().toInt().isInt({ min: 1 }),
+    body("Rooms", "Enter a valid number of Rooms")
+      .isNumeric()
+      .toInt()
+      .isInt({ min: 1 }),
     body("Shared", "Enter a valid Shared option").isLength({ min: 1 }),
     body("Price", "Enter a valid Price").isNumeric().toInt().isInt({ min: 1 }),
     body("PriceType", "Enter a valid Price Type").isLength({ min: 1 }),
     body("Location", "Enter a valid Location").isLength({ min: 5, max: 50 }),
     body("Email", "Enter a valid Email").isEmail(),
     body("Phoneno", "Enter a valid Phone Number").matches(/^[0-9]{11}$/),
-    body("ResidencePic", "Enter a valid Residence Image URL").isLength({ min: 5, max: 50 })
+    body("ResidencePic", "Enter a valid Residence Image URL").isLength({
+      min: 5,
+      max: 50,
+    }),
   ],
 
   async (req, res) => {
     try {
-      const { Name, Owner, Type, Rooms, Shared, Price, PriceType, Location, Email, Phoneno, ResidencePic } = req.body;
+      const {
+        Name,
+        Owner,
+        Type,
+        Rooms,
+        Shared,
+        Price,
+        PriceType,
+        Location,
+        Email,
+        Phoneno,
+        ResidencePic,
+      } = req.body;
 
       // Validation errors
       const errors = validationResult(req);
@@ -47,7 +67,17 @@ router.post("/addresidence", fetchuser,
       // Create new residence in the database
       const residence = new Residence({
         OwnerId: req.user.id,
-        Name, Owner, Type, Rooms, Shared, Price, PriceType, Location, Email, Phoneno, ResidencePic
+        Name,
+        Owner,
+        Type,
+        Rooms,
+        Shared,
+        Price,
+        PriceType,
+        Location,
+        Email,
+        Phoneno,
+        ResidencePic,
       });
 
       const savedResidence = await residence.save();
@@ -80,7 +110,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
     }
 
     //if residence does not exist return error
-    let residence = await Residences.findById(req.params.id);
+    let residence = await Residence.findById(req.params.id);
     if (!residence) {
       return res.status(404).send("Not Found");
     }
@@ -92,7 +122,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
       }
     }
     //find residence by id and update it
-    residence = await Residences.findByIdAndUpdate(
+    residence = await Residence.findByIdAndUpdate(
       req.params.id,
       { $set: newNote },
       { new: true }
@@ -110,7 +140,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
 router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
   try {
     //if residence does not exist return error
-    let residence = await Residences.findById(req.params.id);
+    let residence = await Residence.findById(req.params.id);
     if (!residence) {
       return res.status(404).send("Not Found");
     }
@@ -123,8 +153,11 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
     }
 
     //find residence by id and delete it
-    residence = await Residences.findByIdAndDelete(req.params.id);
-    res.json({ success:"Residences Deleted Successfully", residence: residence });
+    residence = await Residence.findByIdAndDelete(req.params.id);
+    res.json({
+      success: "Residence Deleted Successfully",
+      residence: residence,
+    });
 
     //catch errors
   } catch (error) {
@@ -132,6 +165,5 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
-
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongooseURI= 'mongodb+srv://BabarHussain:2M3JVeELCLqksVm1@cluster0.acmam1j.mongodb.net/RMS-React'
+const mongooseURI= 'mongodb+srv://BabarHussain:2M3JVeELCLqksVm1@cluster0.acmam1j.mongodb.net/RMS-MERN'
 
 const connectToMongo = async () => {
    try {

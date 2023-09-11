@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const ResidenceSchema = new Schema({
+const ResidenceSchema = new mongoose.Schema({
    OwnerId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users' // This references the 'users' collection
@@ -60,5 +59,4 @@ const ResidenceSchema = new Schema({
 });
 
 const Residence = mongoose.model('residences', ResidenceSchema);
-
 module.exports = Residence;

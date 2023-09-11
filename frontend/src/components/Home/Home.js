@@ -32,13 +32,13 @@ const Home = () => {
                   <div className="carousel-caption d-none d-md-block">
                     <h3
                       className="rounded-top p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Find Residence
                     </h3>
                     <p
                       className="rounded-bottom p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Need a place to live we have got you covered.
                     </p>
@@ -53,13 +53,13 @@ const Home = () => {
                   <div className="carousel-caption d-none d-md-block">
                     <h3
                       className="rounded-top p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Book Residence
                     </h3>
                     <p
                       className="rounded-bottom p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Book a suitable residence from anywhere at any time.
                     </p>
@@ -74,13 +74,13 @@ const Home = () => {
                   <div className="carousel-caption d-none d-md-block">
                     <h3
                       className="rounded-top p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Advertise your Residence
                     </h3>
                     <p
                       className="rounded-bottom p-1"
-                      style={{ "background-color": "rgba(105, 108, 255, 0.8)" }}
+                      style={{ "backgroundColor": "rgba(105, 108, 255, 0.8)" }}
                     >
                       Effortlessly advertise your residence to attract renters.
                       Convenient, online, and effective.
