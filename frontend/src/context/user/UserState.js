@@ -10,8 +10,8 @@ const UserState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
+          "auth-token": localStorage.getItem("token")
+        }
       });
       const userData = await response.json();
       setUser(userData); // Update the user state with the fetched data

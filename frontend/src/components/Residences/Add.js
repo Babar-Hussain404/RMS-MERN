@@ -1,7 +1,82 @@
-import React from "react";
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from 'react-router-dom'
+import AlertContext from "../../context/alerts/AlertContext";
 
 const Add = () => {
+    const navigate = useNavigate();
+    const { showAlert } = useContext(AlertContext);
+  
+    const [formData, setFormData] = useState({
+        Name: "Title 3",
+        Owner: "Please do nothing 3",
+        Type: "House",
+        Rooms: 3,
+        Shared: "Yes",
+        Price: 3000,
+        PriceType: "/Day",
+        Location: "Test Location 3",
+        Email: "test3@example.com",
+        Phoneno: "12345678901",
+        ResidencePic: "http://example.com/image3.jpg",
+      });
+        
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
+  
+    // const handleFileChange = async (e) => {
+    //   const selectedFile = e.target.files[0];
+    //   const base64String = await convertFileToBase64(selectedFile);
+    //   setFormData({
+    //     ...formData,
+    //     imageUrl: base64String,
+    //   });
+    // };
+  
+    // const convertFileToBase64 = (file) => {
+    //   return new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result);
+    //     reader.onerror = (error) => reject(error);
+    //   });
+    // };
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      console.log(formData.ResidencePic);
+      try {
+        const response = await fetch("http://localhost:5000/api/residences/addresidence", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token")
+          },
+          body: JSON.stringify(formData),
+        });
+        console.log(response);
+        const data = await response.json();
+  
+        if (response.ok) {
+          console.log(data);
+        } else {
+          showAlert(`HTTP error! status: ${response.status}`, "danger");
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        if (data.success) {
+          navigate("/hotel");
+          showAlert("Residence Created Successfully", "success");
+        }
+      } catch (error) {
+        console.error("Error creating the residence:", error);
+        showAlert(`Error registering user: ${error}`, "danger");
+      }
+    };
+    
   return (
 <div className="container-xxl flex-grow-1 container-p-y">
     <h4 className="fw-bold mb-3"><span className="text-muted fw-light">Residences /</span> Add Residence</h4>
@@ -9,185 +84,214 @@ const Add = () => {
     <div className="card">
         <div className="card-header d-flex">
             <h5 className="mx-auto my-3"><strong> ADD NEW RESIDENCE </strong></h5>
-
         </div>
         <div className="card-body">
-            <form asp-action="AddResidence" id="sub" method="post" enctype="multipart/form-data">
-                <input type="hidden" asp-for="Id" />
+            <form onSubmit={handleSubmit}>
 
                 <div className="row">
                     {/* Residence Name */}
                     <div className="col-md-6 mb-3">
-
-                        <label className="form-label" asp-for="Name"></label>
+                        <label className="form-label" htmlFor="Name">Residence Name</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-name" className="input-group-text">
                                 <i className='bx bx-building'></i>
                             </span>
-                            <input asp-for="Name"
-                                   value="Pk Resorts"
-                                   className="form-control"
-                                   id="basic-icon-default-fullname"
-                                   placeholder="Pk Resorts"
-                                   aria-label="Pk name"
-                                   aria-describedby="basic-icon-default-residence-name" />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="basic-icon-default-fullname"
+                                placeholder="Residence Name"
+                                aria-label="Residence Name"
+                                aria-describedby="basic-icon-default-residence-name"
+                                htmlFor="Name"
+                                value={formData.Name}
+                                onChange={handleChange}
+                            />
                         </div>
-                        <span asp-validation-for="Name" className="text-danger"></span>
-
                     </div>
 
                     {/* Owner Name */}
                     <div className="col-md-6 mb-3">
-
-                        <label className="form-label" asp-for="Owner"></label>
+                        <label className="form-label" htmlFor="Owner">Owner Name</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-user'></i>
                             </span>
-                            <input asp-for="Owner"
-                                   value="John doe"
-                                   className="form-control"
-                                   id="basic-icon-residence-owner-name"
-                                   placeholder="John doe"
-                                   aria-label="John doe"
-                                   aria-describedby="basic-icon-default-residence-Owner-name" />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="basic-icon-residence-owner-name"
+                                placeholder="Owner Name"
+                                aria-label="Owner Name"
+                                aria-describedby="basic-icon-default-residence-Owner-name"
+                                htmlFor="Owner"
+                                value={formData.Owner}
+                                onChange={handleChange}
+                            />
                         </div>
-                        <span asp-validation-for="Owner" className="text-danger"></span>
-
                     </div>
 
                     {/* Type */}
                     <div className="col-md-6 mb-3">
-
-                        <label asp-for="Type" className="form-label"></label>
+                        <label htmlFor="Type" className="form-label">Type</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-slider'></i>
                             </span>
-                            <select className="form-select" asp-for="Type" aria-label="Select Residence Type">
-                                <option selected value="Hotel">Hotel</option>
+                            <select
+                                className="form-select"
+                                aria-label="Select Residence Type"
+                                htmlFor="Type"
+                                value={formData.Type}
+                                onChange={handleChange}
+                            >
+                                <option value="Hotel">Hotel</option>
                                 <option value="Hostel">Hostel</option>
                                 <option value="House">House</option>
                             </select>
                         </div>
-                        <span asp-validation-for="Type" className="text-danger"></span>
-
                     </div>
 
                     {/* Shared */}
                     <div className="col-md-3 mb-3">
-
-                        <label asp-for="Shared" className="form-label"></label>
+                        <label htmlFor="Shared" className="form-label">Shared</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-group'></i>
                             </span>
-                            <select className="form-select" asp-for="Shared" aria-label="Select Residence Type">
-                                <option selected value="No">No</option>
+                            <select
+                                className="form-select"
+                                aria-label="Select Residence Type"
+                                htmlFor="Shared"
+                                value={formData.Shared}
+                                onChange={handleChange}
+                            >
+                                <option value="No">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
                         </div>
-                        <span asp-validation-for="Shared" className="text-danger"></span>
-
                     </div>
 
                     {/* Rooms */}
                     <div className="col-md-3 mb-3">
-
-                        <label className="form-label" asp-for="Rooms"></label>
+                        <label className="form-label" htmlFor="Rooms">Rooms</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-rooms" className="input-group-text">
                                 <i className='bx bx-minus-front'></i>
                             </span>
-                            <input type="number"
-                                   value="5"
-                                   className="form-control"
-                                   id="Rooms"
-                                   name="Rooms"
-                                   placeholder="5"
-                                   aria-label="5"
-                                   aria-describedby="basic-icon-residence-rooms" />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="Rooms"
+                                name="Rooms"
+                                placeholder="Rooms"
+                                aria-label="Rooms"
+                                aria-describedby="basic-icon-residence-rooms"
+                                htmlFor="Rooms"
+                                value={formData.Rooms}
+                                onChange={handleChange}
+                            />
                         </div>
-                        <span asp-validation-for="Rooms" className="text-danger"></span>
-
                     </div>
 
                     {/* Location */}
                     <div className="col-md-6 mb-3">
-                        <label className="form-label" asp-for="Location"></label>
+                        <label className="form-label" htmlFor="Location">Location</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-map-pin" className="input-group-text">
                                 <i className='bx bxs-map-pin'></i>
                             </span>
-                            <input asp-for="Location"
-                                   value="Township, Lahore, Pakistan."
-                                   className="form-control"
-                                   id="basic-icon-location"
-                                   placeholder="Township, Lahore, Pakistan."
-                                   aria-label="Pk Resorts"
-                                   aria-describedby="basic-icon-location" />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="basic-icon-location"
+                                placeholder="Location"
+                                aria-label="Location"
+                                aria-describedby="basic-icon-location"
+                                htmlFor="Location"
+                                value={formData.Location}
+                                onChange={handleChange}
+                            />
                         </div>
-                        <span asp-validation-for="Location" className="text-danger"></span>
                     </div>
 
                     {/* Price */}
                     <div className="col-md-3 mb-3">
-
-                        <label className="form-label" asp-for="Price"></label>
+                        <label className="form-label" htmlFor="Price">Price</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-Price" className="input-group-text">
                                 <i className='bx bx-wallet'></i>
                             </span>
-                            <input type="number"
-                                   value="500"
-                                   className="form-control"
-                                   id="Price"
-                                   name="Price"
-                                   placeholder="Rs. 500"
-                                   aria-label="Rs. 500"
-                                   aria-describedby="basic-icon-residence-Price" />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="Price"
+                                name="Price"
+                                placeholder="Price"
+                                aria-label="Price"
+                                aria-describedby="basic-icon-residence-Price"
+                                htmlFor="Price"
+                                value={formData.Price}
+                                onChange={handleChange}
+                            />
                         </div>
-                        <span asp-validation-for="Price" className="text-danger"></span>
-
                     </div>
 
                     {/* Price Type */}
                     <div className="col-md-3 mb-3">
-
-                        <label asp-for="PriceType" className="form-label"></label>
+                        <label htmlFor="PriceType" className="form-label">Price Type</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-residence-owner-name" className="input-group-text">
                                 <i className='bx bx-time'></i>
                             </span>
-                            <select className="form-select" asp-for="PriceType" aria-label="Select Price Type">
-                                <option selected value="/Month">Per Month</option>
+                            <select
+                                className="form-select"
+                                aria-label="Select Price Type"
+                                htmlFor="PriceType"
+                                value={formData.PriceType}
+                                onChange={handleChange}
+                            >
+                                <option value="/Month">Per Month</option>
                                 <option value="/Day">Per Day</option>
                             </select>
                         </div>
-                        <span asp-validation-for="PriceType" className="text-danger"></span>
-
                     </div>
                 </div>
 
                 {/* Facilities */}
                 <div className="mb-3">
-                    <div className="mb-3">
-                        <label className="form-label" for="basic-icon-residence-facilities">Select Facilities</label>
-
-                        <div className="row">
-
-                                <div className="col-md-4">
-                                    <div className="form-check form-switch mb-2">
-                                        <input className="form-check-input check" type="checkbox" name="Facilities[@i].IsSelected" id="Facility_@i" value="true" />
-                                        <input type="hidden" asp-for="@Model.Facilities[i].FacilityId" />
-                                        <input type="text" asp-for="@Model.Facilities[i].Name" value="@Model.Facilities[i].Name" hidden />
-                                        <input type="text" asp-for="@Model.Facilities[i].Icon" value="@Model.Facilities[i].Icon" hidden />
-                                        <label className="form-check-label btn btn-outline-primary w-100 text-start" for="Facility_@i">
-                                            <i className='@Model.Facilities[i].Icon'></i>
-                                            &nbsp;@Model.Facilities[i].Name
-                                        </label>
-                                    </div>
-                                </div>
+                    <label className="form-label" htmlFor="basic-icon-residence-facilities">Select Facilities</label>
+                    <div className="row">
+                        <div className="col-md-4">
+                            <div className="form-check form-switch mb-2">
+                                <input
+                                    className="form-check-input check"
+                                    type="checkbox"
+                                    name="Facilities[@i].IsSelected"
+                                    id="Facility_@i"
+                                />
+                                <input
+                                    type="hidden"
+                                    htmlFor="@Model.Facilities[i].FacilityId"
+                                />
+                                <input
+                                    type="text"
+                                    htmlFor="@Model.Facilities[i].Name"
+                                    hidden
+                                />
+                                <input
+                                    type="text"
+                                    htmlFor="@Model.Facilities[i].Icon"
+                                    hidden
+                                />
+                                <label
+                                    className="form-check-label btn btn-outline-primary w-100 text-start"
+                                    htmlFor="Facility_@i"
+                                >
+                                    <i className='@Model.Facilities[i].Icon'></i>
+                                    &nbsp;@Model.Facilities[i].Name
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,62 +299,77 @@ const Add = () => {
                 <div className="row">
                     {/* Email */}
                     <div className="col-md-6 mb-3">
-                        <label className="form-label" asp-for="Email"></label>
+                        <label className="form-label" htmlFor="Email">Email</label>
                         <div className="input-group input-group-merge">
                             <span className="input-group-text"><i className="bx bx-envelope"></i></span>
-                            <input asp-for="Email"
-                                   value="Pk.Resorts@example.com"
-                                   id="basic-icon-default-email"
-                                   className="form-control"
-                                   placeholder="Pk.Resorts@example.com"
-                                   aria-label="Pk.Resorts@example.com"
-                                   aria-describedby="basic-icon-default-email" />
+                            <input
+                                type="email"
+                                className="form-control"
+                                id="basic-icon-default-email"
+                                placeholder="Email"
+                                aria-label="Email"
+                                aria-describedby="basic-icon-default-email"
+                                htmlFor="Email"
+                                value={formData.Email}
+                                onChange={handleChange}
+                            />
                             <span id="basic-icon-default-email" className="input-group-text"></span>
                         </div>
                         <div className="form-text">You can use letters, numbers & periods</div>
-                        <span asp-validation-for="Email" className="text-danger"></span>
                     </div>
 
                     {/* Phone No */}
                     <div className="col-md-6 mb-3">
-                        <label className="form-label" asp-for="Phoneno"></label>
+                        <label className="form-label" htmlFor="Phoneno">Phone No</label>
                         <div className="input-group input-group-merge">
                             <span id="basic-icon-default-phone2" className="input-group-text">
                                 <i className="bx bx-phone"></i>
                             </span>
-                            <input asp-for="Phoneno"
-                                   className="form-control"
-                                   value="03001234567"
-                                   placeholder="0300 1234567" />
+                            <input
+                                type="tel"
+                                className="form-control"
+                                placeholder="Phone No"
+                                aria-label="Phone No"
+                                aria-describedby="basic-icon-default-phone2"
+                                htmlFor="Phoneno"
+                                value={formData.Phoneno}
+                                onChange={handleChange}
+                            />
                         </div>
                         <div className="form-text">Phone no must be 11 digits.</div>
-                        <span asp-validation-for="Phoneno" className="text-danger"></span>
                     </div>
                 </div>
 
                 {/* Description */}
                 <div className="mb-3">
-                    <label className="form-label" asp-for="Description"></label>
+                    <label className="form-label" htmlFor="Description">Description</label>
                     <div className="input-group input-group-merge">
                         <span id="basic-icon-default-message2" className="input-group-text">
                             <i className='bx bxs-detail'></i>
                         </span>
-                        <textarea id="Description"
-                                  value="something is written about the residence.It is a placeholder."
-                                  className="form-control"
-                                  asp-for="Description"
-                                  placeholder="Write about your Residence..."
-                                  aria-label="Write about your Residence..."
-                                  aria-describedby="basic-icon-default-description"></textarea>
+                        <textarea
+                            id="Description"
+                            className="form-control"
+                            htmlFor="Description"
+                            placeholder="Write about your Residence..."
+                            aria-label="Write about your Residence..."
+                            aria-describedby="basic-icon-default-description"
+                            value={formData.Description}
+                            onChange={handleChange}
+                        ></textarea>
                     </div>
-                    <span asp-validation-for="Description" className="text-danger"></span>
                 </div>
 
                 {/* Select Residence Image */}
                 <div className="mb-3">
-                    <label asp-for="ResidenceImage" className="form-label">Select Residence Image</label>
-                    <input className="form-control" type="file" asp-for="ResidenceImage" />
-                    <span asp-validation-for="ResidenceImage" className="text-danger"></span>
+                    <label htmlFor="ResidenceImage" className="form-label">Select Residence Image</label>
+                    <input
+                        className="form-control"
+                        type="file"
+                        htmlFor="ResidenceImage"
+                        name="ResidenceImage"
+                        onChange={handleChange}
+                    />
                 </div>
 
                 {/* Buttons */}
