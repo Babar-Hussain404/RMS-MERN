@@ -67,18 +67,18 @@ const Sidenav = () => {
 
         {/* Hostel */}
         <li className="menu-item">
-          <a asp-controller="Residences" asp-action="Hostel" className="menu-link">
+          <Link to="/hostel" className="menu-link">
             <i className="menu-icon tf-icons bx bx-building-house"></i>
             <div data-i18n="Hostel">Hostel</div>
-          </a>
+          </Link>
         </li>
 
         {/* House */}
         <li className="menu-item">
-          <a href="#" className="menu-link">
+          <Link to="/house" className="menu-link">
             <i className="menu-icon tf-icons bx bxs-institution"></i>
             <div data-i18n="House">House</div>
-          </a>
+          </Link>
         </li>
 
         {/* Info Heading */}

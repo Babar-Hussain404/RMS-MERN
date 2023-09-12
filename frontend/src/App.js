@@ -4,7 +4,9 @@ import Add from './components/Residences/Add';
 import Edit from './components/Residences/Edit';
 import Layout from "./components/Shared/Layout";
 import AboutUs from "./components/Home/AboutUs";
+import House from "./components/Residences/House";
 import Hotel from "./components/Residences/Hotel";
+import Hostel from "./components/Residences/Hostel";
 import ContactUs from "./components/Home/ContactUs";
 import Detail from './components/Residences/Detail';
 import Delete from './components/Residences/Delete';
@@ -38,7 +40,9 @@ function App() {
             {/* Residences */}
             <Route path="add" element={<Add />} />
             <Route path="edit" element={<Edit />} />
+            <Route path="house" element={<House />} />
             <Route path="hotel" element={<Hotel />} />
+            <Route path="hostel" element={<Hostel />} />
             <Route path="delete" element={<Delete />} />
             <Route path="detail" element={<Detail />} />
 

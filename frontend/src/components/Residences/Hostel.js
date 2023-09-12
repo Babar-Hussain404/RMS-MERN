@@ -4,14 +4,14 @@ import AlertContext from "../../context/alerts/AlertContext";
 import ResidenceContext from "../../context/residences/ResidenceContext";
 import Residence from "./Residence";
 
-const Hotel = () => {
-  const { residences, getHotels } = useContext(ResidenceContext);
+const Hostel = () => {
+  const { residences, getHostels } = useContext(ResidenceContext);
   const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
-      getHotels();
+      getHostels();
     } else {
       navigate("/login");
       showAlert(`Please login to view residences`, "info");
@@ -25,7 +25,7 @@ const Hotel = () => {
         <div className="col-md-3">
           <h4 className="fw-bold py-2 mb-4">
             <span className="text-muted fw-light">Dashboard /</span>
-            Hotels
+            Hostels
           </h4>
         </div>
 
@@ -41,7 +41,7 @@ const Hotel = () => {
       <div className="row">
         {residences.length === 0 && (
           <div className="card p-2">
-            No Hotels available at the mments.Please check back later.
+            No Hostels available at the mments.Please check back later.
           </div>
         )}
         {residences.map(
@@ -54,4 +54,4 @@ const Hotel = () => {
   );
 };
 
-export default Hotel;
+export default Hostel;
