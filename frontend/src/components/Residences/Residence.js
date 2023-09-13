@@ -48,7 +48,10 @@ const Residence = (props) => {
             </Link>
 
             {/*  Delete Button */}
-            <Link className="btn btn-outline-danger" to="/delete">
+            <Link
+              className="btn btn-outline-danger"
+              to={`/delete/${residence._id}`}
+            >
               <span className="tf-icons bx bx-trash"></span>&nbsp;Delete
             </Link>
           </div>

@@ -165,6 +165,7 @@ console.log(residence)
 //Route 5: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
 router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
   try {
+    console.log(req.params.id)
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
     if (!residence) {
@@ -172,7 +173,7 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
     }
 
     //if unauthorized user accesses the residence retun error
-    if (residence.user.toString() !== req.user.id) {
+    if (residence.OwnerId.toString() !== req.user.id) {
       {
         return res.status(401).send("Not Allowed");
       }
@@ -181,8 +182,7 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
     //find residence by id and delete it
     residence = await Residence.findByIdAndDelete(req.params.id);
     res.json({
-      success: "Residence Deleted Successfully",
-      residence: residence,
+      success: "Residence Deleted Successfully"
     });
 
     //catch errors

@@ -38,7 +38,7 @@ const Sidenav = () => {
         </li>
 
         {/* Login */}
-        <li className="menu-item">
+        <li className={`menu-item ${location.pathname ==="/login"?"active":""}`}>
           <Link to='/login' className="menu-link">
             <i className="menu-icon tf-icons fa-solid fa-arrow-right-to-bracket"></i>
             <div data-i18n="Login">Login</div>
@@ -46,7 +46,7 @@ const Sidenav = () => {
         </li>
 
         {/* Register */}
-        <li className="menu-item">
+        <li className={`menu-item ${location.pathname ==="/register"?"active":""}`}>
           <Link to='/register' className="menu-link">
             <i className="menu-icon tf-icons fa-regular fa-address-card"></i>
             <div data-i18n="Register">Register</div>
@@ -58,7 +58,7 @@ const Sidenav = () => {
         </li>
 
         {/* Hotel */}
-        <li className="menu-item">
+        <li className={`menu-item ${location.pathname ==="/hotel" ||location.pathname ==="/Hotel"? "active":""}`}>
           <Link to='/hotel' className="menu-link">
             <i className="menu-icon tf-icons bx bx-hotel"></i>
             <div data-i18n="Hotel">Hotel</div>
@@ -66,7 +66,7 @@ const Sidenav = () => {
         </li>
 
         {/* Hostel */}
-        <li className="menu-item">
+        <li className={`menu-item ${location.pathname ==="/hostel" ||location.pathname ==="/Hostel"?"active":""}`}>
           <Link to="/hostel" className="menu-link">
             <i className="menu-icon tf-icons bx bx-building-house"></i>
             <div data-i18n="Hostel">Hostel</div>
@@ -74,7 +74,7 @@ const Sidenav = () => {
         </li>
 
         {/* House */}
-        <li className="menu-item">
+        <li className={`menu-item ${location.pathname ==="/house" ||location.pathname ==="/House" ?"active":""}`}>
           <Link to="/house" className="menu-link">
             <i className="menu-icon tf-icons bx bxs-institution"></i>
             <div data-i18n="House">House</div>

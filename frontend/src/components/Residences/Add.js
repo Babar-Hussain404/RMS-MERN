@@ -62,7 +62,7 @@ const Add = () => {
   
         if (response.ok) {
           console.log(data);
-          navigate("/hotel");
+          navigate("/"+formData.Type);
           showAlert("Residence Created Successfully", "success");
         } else {
           showAlert(`HTTP error! status: ${response.status}`, "danger");
@@ -377,7 +377,7 @@ const Add = () => {
                             <span className="tf-icons bx bx-add-to-queue"></span>&nbsp;Add
                         </button>
 
-                        <Link to='/hotel' className="btn btn-outline-secondary w-25">
+                        <Link to={`/${formData.Type}`} className="btn btn-outline-secondary w-25">
                             <span className="tf-icons bx bx-right-arrow-alt"></span>&nbsp;Back
                         </Link>
                     </div>

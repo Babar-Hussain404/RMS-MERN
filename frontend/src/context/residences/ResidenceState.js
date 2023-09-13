@@ -116,7 +116,26 @@ const ResidenceState = (props) => {
       );
       const residenceDetails = await response.json();
       setResidence(residenceDetails.residence);
-      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const deleteResidence = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/residences/deleteresidence/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const res = await response.json();
+      setResidence(res)
+
     } catch (error) {
       console.error(error);
     }
@@ -131,6 +150,7 @@ const ResidenceState = (props) => {
         getHotels,
         getHostels,
         getHouses,
+        deleteResidence,
         getResidenceDetails,
       }}
     >

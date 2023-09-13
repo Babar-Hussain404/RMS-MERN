@@ -1,10 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/user/UserContext";
 import AlertCotext from "../../context/alerts/AlertContext";
 
 const Topnav = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertCotext);
+  const { user, getUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUser();
+    } else {
+      navigate("/login");
+      showAlert(`Please login to view profile`, "info");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const logOut = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -17,7 +30,7 @@ const Topnav = () => {
       id="layout-navbar"
     >
       <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-        <a className="nav-item nav-link px-0 me-xl-4" href="#">
+        <a className="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
           <i className="bx bx-menu bx-sm"></i>
         </a>
       </div>
@@ -70,8 +83,10 @@ const Topnav = () => {
                       </div>
                     </div>
                     <div className="flex-grow-1">
-                      <span className="fw-semibold d-block">John Doe</span>
-                      <small className="text-muted">Admin</small>
+                      <span className="fw-semibold d-block">
+                        {user.FName} {user.LName}
+                      </span>
+                      <small className="text-muted">{user.UserType}</small>
                     </div>
                   </div>
                 </a>
