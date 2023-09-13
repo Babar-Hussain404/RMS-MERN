@@ -39,12 +39,12 @@ function App() {
 
             {/* Residences */}
             <Route path="add" element={<Add />} />
-            <Route path="edit" element={<Edit />} />
             <Route path="house" element={<House />} />
             <Route path="hotel" element={<Hotel />} />
             <Route path="hostel" element={<Hostel />} />
-            <Route path="delete" element={<Delete />} />
-            <Route path="detail" element={<Detail />} />
+            <Route path="edit/:id" element={<Edit />} />
+            <Route path="delete/:id" element={<Delete />} />
+            <Route path="detail/:id" element={<Detail />} />
 
           </Route>
         </Routes>

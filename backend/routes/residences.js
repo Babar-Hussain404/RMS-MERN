@@ -136,7 +136,33 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
   }
 });
 
-//Route 4: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
+//Route 4: Get an existing residence using: Get "/api/residences/getresidence". Login required
+router.get("/getresidence/:id", fetchuser, async (req, res) => {
+  try {
+    //if residence does not exist return error
+    let residence = await Residence.findById(req.params.id);
+console.log(residence)
+
+    if (!residence) {
+      return res.status(404).send("Not Found");
+    }
+
+    //if unauthorized user accesses the residence retun error
+    if (residence.OwnerId.toString() !== req.user.id) {
+      {
+        return res.status(401).send("Not Allowed");
+      }
+    }
+    res.json({ residence });
+
+    //catch errors
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Route 5: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
 router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
   try {
     //if residence does not exist return error

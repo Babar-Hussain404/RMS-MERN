@@ -3,6 +3,7 @@ import ResidenceContext from "./ResidenceContext";
 
 const ResidenceState = (props) => {
   const [residences, setResidences] = useState([]);
+  const [residence, setResidence] = useState({});
 
   const getResidences = async () => {
     try {
@@ -36,19 +37,19 @@ const ResidenceState = (props) => {
         }
       );
       const residenceData = await response.json();
-  
+
       // Filter out residences with Type set to "Hotel"
-      const hotels = residenceData.filter((residence) => residence.Type === "Hotel");
-  
+      const hotels = residenceData.filter(
+        (residence) => residence.Type === "Hotel"
+      );
+
       // Set the filtered residences to state
       setResidences(hotels);
-      console.log("Hotels are displayed.")
-
     } catch (error) {
       console.error(error);
     }
   };
-  
+
   const getHostels = async () => {
     try {
       const response = await fetch(
@@ -62,14 +63,14 @@ const ResidenceState = (props) => {
         }
       );
       const residenceData = await response.json();
-  
+
       // Filter out residences with Type set to "Hostel"
-      const hostels = residenceData.filter((residence) => residence.Type === "Hostel");
-  
+      const hostels = residenceData.filter(
+        (residence) => residence.Type === "Hostel"
+      );
+
       // Set the filtered residences to state
       setResidences(hostels);
-      console.log("Hostels are displayed.")
-      
     } catch (error) {
       console.error(error);
     }
@@ -88,13 +89,33 @@ const ResidenceState = (props) => {
         }
       );
       const residenceData = await response.json();
-  
+
       // Filter out residences with Type set to "House"
-      const houses = residenceData.filter((residence) => residence.Type === "House");
-  
+      const houses = residenceData.filter(
+        (residence) => residence.Type === "House"
+      );
+
       // Set the filtered residences to state
       setResidences(houses);
-      console.log("Houses are displayed.")
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getResidenceDetails = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/residences/getresidence/${id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const residenceDetails = await response.json();
+      setResidence(residenceDetails.residence);
       
     } catch (error) {
       console.error(error);
@@ -103,7 +124,15 @@ const ResidenceState = (props) => {
 
   return (
     <ResidenceContext.Provider
-      value={{ residences, getResidences, getHotels, getHostels, getHouses }}
+      value={{
+        residence,
+        residences,
+        getResidences,
+        getHotels,
+        getHostels,
+        getHouses,
+        getResidenceDetails,
+      }}
     >
       {props.children}
     </ResidenceContext.Provider>

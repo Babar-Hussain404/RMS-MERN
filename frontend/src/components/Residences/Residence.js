@@ -23,7 +23,8 @@ const Residence = (props) => {
             </h5>
             <span className="card-text">
               <span className="tf-icons bx bx-wallet"></span>
-              &nbsp;Rs.{residence.Price}{residence.PriceType}
+              &nbsp;Rs.{residence.Price}
+              {residence.PriceType}
             </span>
           </div>
           <p className="card-text locationFilter">
@@ -34,7 +35,10 @@ const Residence = (props) => {
           {/* Residence Modification Buttons*/}
           <div className="btn-group" role="group">
             {/*  Details Button */}
-            <Link className="btn btn-outline-info" to="/detail">
+            <Link
+              className="btn btn-outline-info"
+              to={`/detail/${residence._id}`}
+            >
               <span className="tf-icons bx bx-detail"></span>&nbsp;Details
             </Link>
 
