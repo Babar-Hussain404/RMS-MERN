@@ -43,7 +43,10 @@ const Residence = (props) => {
             </Link>
 
             {/*  Edit Button */}
-            <Link className="btn btn-outline-warning" to="/edit">
+            <Link
+              className="btn btn-outline-warning"
+              to={`/update/${residence._id}`}
+            >
               <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
             </Link>
 

@@ -1,7 +1,7 @@
 import Home from "./components/Home/Home";
 import Help from "./components/Home/Help";
 import Add from './components/Residences/Add';
-import Edit from './components/Residences/Edit';
+import Update from './components/Residences/Update';
 import Layout from "./components/Shared/Layout";
 import AboutUs from "./components/Home/AboutUs";
 import House from "./components/Residences/House";
@@ -42,7 +42,7 @@ function App() {
             <Route path="house" element={<House />} />
             <Route path="hotel" element={<Hotel />} />
             <Route path="hostel" element={<Hostel />} />
-            <Route path="edit/:id" element={<Edit />} />
+            <Route path="update/:id" element={<Update />} />
             <Route path="delete/:id" element={<Delete />} />
             <Route path="detail/:id" element={<Detail />} />
 

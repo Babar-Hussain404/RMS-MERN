@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ResidenceContext from "./ResidenceContext";
+import AlertContext from "../alerts/AlertContext";
 
 const ResidenceState = (props) => {
   const [residences, setResidences] = useState([]);
   const [residence, setResidence] = useState({});
+  const { showAlert } = useContext(AlertContext);
 
   const getResidences = async () => {
     try {
@@ -116,9 +118,39 @@ const ResidenceState = (props) => {
       );
       const residenceDetails = await response.json();
       setResidence(residenceDetails.residence);
+
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const updateResidence = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/residences/updateresidence/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(residence),
+        }
+      );
+        const data = await response.json();
+
+        if (response.ok) {
+          showAlert(data.message, "success");
+        } else {
+          showAlert(`HTTP error! status: ${response.status}`, "danger");
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+    } catch (error) {
+      console.error("Error creating the residence:", error);
+      showAlert(`Error registering user: ${error}`, "danger");
+    }
+
   };
 
   const deleteResidence = async (id) => {
@@ -134,8 +166,7 @@ const ResidenceState = (props) => {
         }
       );
       const res = await response.json();
-      setResidence(res)
-
+      setResidence(res);
     } catch (error) {
       console.error(error);
     }
@@ -146,11 +177,13 @@ const ResidenceState = (props) => {
       value={{
         residence,
         residences,
-        getResidences,
         getHotels,
-        getHostels,
         getHouses,
+        getHostels,
+        setResidence,
+        getResidences,
         deleteResidence,
+        updateResidence,
         getResidenceDetails,
       }}
     >

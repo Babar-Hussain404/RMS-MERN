@@ -11,9 +11,8 @@ const Sidenav = () => {
       className="layout-menu menu-vertical menu bg-menu-theme"
     >
       <div className="app-brand demo">
-        
         <Logo />
-        
+
         <a
           href="#"
           className="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none"
@@ -26,7 +25,9 @@ const Sidenav = () => {
 
       <ul className="menu-inner py-1">
         {/* Dashboard */}
-        <li className={`menu-item ${location.pathname ==="/"?"active":""}`}>
+        <li
+          className={`menu-item ${location.pathname === "/" ? "active" : ""}`}
+        >
           <Link to="/" className="menu-link">
             <i className="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
@@ -38,16 +39,24 @@ const Sidenav = () => {
         </li>
 
         {/* Login */}
-        <li className={`menu-item ${location.pathname ==="/login"?"active":""}`}>
-          <Link to='/login' className="menu-link">
+        <li
+          className={`menu-item ${
+            location.pathname === "/login" ? "active" : ""
+          }`}
+        >
+          <Link to="/login" className="menu-link">
             <i className="menu-icon tf-icons fa-solid fa-arrow-right-to-bracket"></i>
             <div data-i18n="Login">Login</div>
           </Link>
         </li>
 
         {/* Register */}
-        <li className={`menu-item ${location.pathname ==="/register"?"active":""}`}>
-          <Link to='/register' className="menu-link">
+        <li
+          className={`menu-item ${
+            location.pathname === "/register" ? "active" : ""
+          }`}
+        >
+          <Link to="/register" className="menu-link">
             <i className="menu-icon tf-icons fa-regular fa-address-card"></i>
             <div data-i18n="Register">Register</div>
           </Link>
@@ -58,15 +67,27 @@ const Sidenav = () => {
         </li>
 
         {/* Hotel */}
-        <li className={`menu-item ${location.pathname ==="/hotel" ||location.pathname ==="/Hotel"? "active":""}`}>
-          <Link to='/hotel' className="menu-link">
+        <li
+          className={`menu-item ${
+            location.pathname === "/hotel" || location.pathname === "/Hotel"
+              ? "active"
+              : ""
+          }`}
+        >
+          <Link to="/hotel" className="menu-link">
             <i className="menu-icon tf-icons bx bx-hotel"></i>
             <div data-i18n="Hotel">Hotel</div>
           </Link>
         </li>
 
         {/* Hostel */}
-        <li className={`menu-item ${location.pathname ==="/hostel" ||location.pathname ==="/Hostel"?"active":""}`}>
+        <li
+          className={`menu-item ${
+            location.pathname === "/hostel" || location.pathname === "/Hostel"
+              ? "active"
+              : ""
+          }`}
+        >
           <Link to="/hostel" className="menu-link">
             <i className="menu-icon tf-icons bx bx-building-house"></i>
             <div data-i18n="Hostel">Hostel</div>
@@ -74,7 +95,13 @@ const Sidenav = () => {
         </li>
 
         {/* House */}
-        <li className={`menu-item ${location.pathname ==="/house" ||location.pathname ==="/House" ?"active":""}`}>
+        <li
+          className={`menu-item ${
+            location.pathname === "/house" || location.pathname === "/House"
+              ? "active"
+              : ""
+          }`}
+        >
           <Link to="/house" className="menu-link">
             <i className="menu-icon tf-icons bx bxs-institution"></i>
             <div data-i18n="House">House</div>
@@ -87,7 +114,11 @@ const Sidenav = () => {
         </li>
 
         {/* About Us */}
-        <li className={`menu-item ${location.pathname ==="/aboutus"?"active":""}`}>
+        <li
+          className={`menu-item ${
+            location.pathname === "/aboutus" ? "active" : ""
+          }`}
+        >
           <Link to="/aboutus" className="menu-link">
             <i className="menu-icon bx tf-icons bxs-user-detail"></i>
             <div data-i18n="About us">About us</div>
@@ -95,23 +126,35 @@ const Sidenav = () => {
         </li>
 
         {/* Contact Us */}
-        <li className={`menu-item ${location.pathname ==="/contactus"?"active":""}`}>
-          <Link to='/contactus' className="menu-link">
+        <li
+          className={`menu-item ${
+            location.pathname === "/contactus" ? "active" : ""
+          }`}
+        >
+          <Link to="/contactus" className="menu-link">
             <i className="menu-icon tf-icons bx bx-support"></i>
             <div data-i18n="Contact us">Contact Us</div>
           </Link>
         </li>
 
         {/* Help (FAQs) */}
-        <li className={`menu-item ${location.pathname ==="/help"?"active":""}`}>
-          <Link to='/help' className="menu-link">
+        <li
+          className={`menu-item ${
+            location.pathname === "/help" ? "active" : ""
+          }`}
+        >
+          <Link to="/help" className="menu-link">
             <i className="menu-icon tf-icons bx bx-info-circle"></i>
             <div data-i18n="FAQs">Help (FAQs)</div>
           </Link>
         </li>
 
         {/* Privacy Policy */}
-        <li className={`menu-item ${location.pathname ==="/privacypolicy"?"active":""}`}>
+        <li
+          className={`menu-item ${
+            location.pathname === "/privacypolicy" ? "active" : ""
+          }`}
+        >
           <Link to="/privacypolicy" className="menu-link">
             <i className="menu-icon tf-icons bx bx-check-shield"></i>
             <div data-i18n="Help">Privacy Policy</div>

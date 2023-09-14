@@ -95,19 +95,21 @@ router.post(
 //Route 3: Update an existing residence using: PUT "/api/residences/updateresidence". Login required
 router.put("/updateresidence/:id", fetchuser, async (req, res) => {
   try {
-    const { title, description, tag } = req.body;
+    const { Name, Owner, Type, Rooms, Shared, Price, PriceType, Location, Email, Phoneno, ResidencePic } = req.body;
 
-    const newNote = {};
+    const updatedRes = {};
     //store property values in object
-    if (title) {
-      newNote.title = title;
-    }
-    if (description) {
-      newNote.description = description;
-    }
-    if (tag) {
-      newNote.tag = tag;
-    }
+    if (Name) {updatedRes.Name = Name;}
+    if (Owner) {updatedRes.Owner = Owner;}
+    if (Type) {updatedRes.Type = Type;}
+    if (Rooms) {updatedRes.Rooms = Rooms;}
+    if (Shared) { updatedRes.Shared = Shared;}
+    if (Price) {updatedRes.Price = Price;}
+    if (PriceType) {updatedRes.PriceType = PriceType;}
+    if (Location) {updatedRes.Location = Location;}
+    if (Email) { updatedRes.Email = Email;}
+    if (Phoneno) {updatedRes.Phoneno = Phoneno;}
+    if (ResidencePic) {updatedRes.ResidencePic = ResidencePic;}
 
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
@@ -116,7 +118,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
     }
 
     //if unauthorized user accesses the residence retun error
-    if (residence.user.toString() !== req.user.id) {
+    if (residence.OwnerId.toString() !== req.user.id) {
       {
         return res.status(401).send("Not Allowed");
       }
@@ -124,10 +126,10 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
     //find residence by id and update it
     residence = await Residence.findByIdAndUpdate(
       req.params.id,
-      { $set: newNote },
+      { $set: updatedRes },
       { new: true }
     );
-    res.json({ residence });
+    res.json({ message : updatedRes.Type +" Edited successfully" });
 
     //catch errors
   } catch (error) {
