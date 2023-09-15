@@ -66,6 +66,18 @@ const Sidenav = () => {
           <span className="menu-header-text">Residences</span>
         </li>
 
+        {/* Booking List */}
+        <li
+          className={`menu-item ${
+            location.pathname === "/bookinglist" ? "active" : ""
+          }`}
+        >
+          <Link to="/bookinglist" className="menu-link">
+            <i className="menu-icon tf-icons bx bx-list-ol"></i>
+            <div data-i18n="Booking List">Booking List</div>
+          </Link>
+        </li>
+
         {/* Hotel */}
         <li
           className={`menu-item ${

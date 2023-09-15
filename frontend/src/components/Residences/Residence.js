@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 const Residence = (props) => {
   const { residence } = props;
 
+  handleBooking = (id) => {
+    residenceBooking(id);
+  };
+
   return (
     <div className="col-md-6 col-lg-4 mb-3">
       <div className="card h-100">
@@ -57,6 +61,14 @@ const Residence = (props) => {
             >
               <span className="tf-icons bx bx-trash"></span>&nbsp;Delete
             </Link>
+
+            {/* Book Button */}
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleBooking(id)}
+            >
+              Book
+            </button>
           </div>
         </div>
       </div>

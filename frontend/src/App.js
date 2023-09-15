@@ -1,24 +1,24 @@
 import Home from "./components/Home/Home";
 import Help from "./components/Home/Help";
-import Add from './components/Residences/Add';
-import Update from './components/Residences/Update';
+import Add from "./components/Residences/Add";
+import Update from "./components/Residences/Update";
 import Layout from "./components/Shared/Layout";
 import AboutUs from "./components/Home/AboutUs";
 import House from "./components/Residences/House";
 import Hotel from "./components/Residences/Hotel";
 import Hostel from "./components/Residences/Hostel";
 import ContactUs from "./components/Home/ContactUs";
-import Detail from './components/Residences/Detail';
-import Delete from './components/Residences/Delete';
+import Detail from "./components/Residences/Detail";
+import Delete from "./components/Residences/Delete";
 import Login from "./components/Authorization/Login";
 import Setting from "./components/Authorization/Setting";
 import Profile from "./components/Authorization/Profile";
 import Register from "./components/Authorization/Register";
 import PrivacyPolicy from "./components/Home/PrivacyPolicy";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import BookingList from "./components/Booking/BookingList";
 
 function App() {
-
   return (
     <>
       <Router>
@@ -45,6 +45,9 @@ function App() {
             <Route path="update/:id" element={<Update />} />
             <Route path="delete/:id" element={<Delete />} />
             <Route path="detail/:id" element={<Detail />} />
+
+            {/* Booking */}
+            <Route path="bookinglist" element={<BookingList />} />
 
           </Route>
         </Routes>
