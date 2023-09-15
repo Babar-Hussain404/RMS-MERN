@@ -1,12 +1,10 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import BookingContext from "../../context/bookings/BookingContext";
 
 const Residence = (props) => {
   const { residence } = props;
-
-  handleBooking = (id) => {
-    residenceBooking(id);
-  };
+  const { addBooking } = useContext(BookingContext);
 
   return (
     <div className="col-md-6 col-lg-4 mb-3">
@@ -63,10 +61,7 @@ const Residence = (props) => {
             </Link>
 
             {/* Book Button */}
-            <button
-              className="btn btn-outline-primary"
-              onClick={handleBooking(id)}
-            >
+            <button className="btn btn-outline-primary" onClick={addBooking(residence._id)}>
               Book
             </button>
           </div>

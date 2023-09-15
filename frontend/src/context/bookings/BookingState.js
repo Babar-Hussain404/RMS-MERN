@@ -1,16 +1,18 @@
 import React, { useContext, useState } from "react";
 import BookingContext from "./BookingContext";
 import AlertContext from "../alerts/AlertContext";
+import { useNavigate } from "react-router-dom";
 
 const BookingState = (props) => {
-  const [residences, setResidences] = useState([]);
-  const [residence, setResidence] = useState({});
+  const [bookings, setBookings] = useState([]);
+  const [booking, setBooking] = useState({});
   const { showAlert } = useContext(AlertContext);
-
-  const getResidences = async () => {
+  const navigate = useNavigate();
+  
+  const getBookings = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/residences/getallresidences",
+        "http://localhost:5000/api/bookings/getallbookings",
         {
           method: "GET",
           headers: {
@@ -19,105 +21,30 @@ const BookingState = (props) => {
           },
         }
       );
-      const residenceData = await response.json();
-      setResidences(residenceData); // Update the residence state with the fetched data
+      const bookingData = await response.json();
+      setBookings(bookingData); // Update the booking state with the fetched data
     } catch (error) {
       console.error(error);
     }
   };
 
-  const getHotels = async () => {
+  const addBooking = async (id) => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/residences/getallresidences",
+        `http://localhost:5000/api/bookings/addbooking/${id}`,
         {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
             "auth-token": localStorage.getItem("token"),
           },
         }
       );
-      const residenceData = await response.json();
 
-      // Filter out residences with Type set to "Hotel"
-      const hotels = residenceData.filter(
-        (residence) => residence.Type === "Hotel"
-      );
+      const data = await response.json();
 
-      // Set the filtered residences to state
-      setResidences(hotels);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getHostels = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/residences/getallresidences",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
-        }
-      );
-      const residenceData = await response.json();
-
-      // Filter out residences with Type set to "Hostel"
-      const hostels = residenceData.filter(
-        (residence) => residence.Type === "Hostel"
-      );
-
-      // Set the filtered residences to state
-      setResidences(hostels);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getHouses = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:5000/api/residences/getallresidences",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
-        }
-      );
-      const residenceData = await response.json();
-
-      // Filter out residences with Type set to "House"
-      const houses = residenceData.filter(
-        (residence) => residence.Type === "House"
-      );
-
-      // Set the filtered residences to state
-      setResidences(houses);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getResidenceDetails = async (id) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/residences/getresidence/${id}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
-        }
-      );
-      const residenceDetails = await response.json();
-      setResidence(residenceDetails.residence);
+      showAlert(data.message , "success");
+      navigate("/bookinglist")
 
     } catch (error) {
       console.error(error);
@@ -127,36 +54,34 @@ const BookingState = (props) => {
   const updateResidence = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/residences/updateresidence/${id}`,
+        `http://localhost:5000/api/bookings/updatebooking/${id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             "auth-token": localStorage.getItem("token"),
           },
-          body: JSON.stringify(residence),
+          body: JSON.stringify(booking),
         }
       );
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-          showAlert(data.message, "success");
-        } else {
-          showAlert(`HTTP error! status: ${response.status}`, "danger");
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
+      if (response.ok) {
+        showAlert(data.message, "success");
+      } else {
+        showAlert(`HTTP error! status: ${response.status}`, "danger");
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
     } catch (error) {
-      console.error("Error creating the residence:", error);
+      console.error("Error creating the booking:", error);
       showAlert(`Error registering user: ${error}`, "danger");
     }
-
   };
 
   const deleteResidence = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/residences/deleteresidence/${id}`,
+        `http://localhost:5000/api/bookings/deletebooking/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -166,7 +91,7 @@ const BookingState = (props) => {
         }
       );
       const res = await response.json();
-      setResidence(res);
+      setBooking(res);
     } catch (error) {
       console.error(error);
     }
@@ -175,16 +100,10 @@ const BookingState = (props) => {
   return (
     <BookingContext.Provider
       value={{
-        residence,
-        residences,
-        getHotels,
-        getHouses,
-        getHostels,
-        setResidence,
-        getResidences,
-        deleteResidence,
-        updateResidence,
-        getResidenceDetails,
+        booking,
+        bookings,
+        addBooking,
+        getBookings,
       }}
     >
       {props.children}
