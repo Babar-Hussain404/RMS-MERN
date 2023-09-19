@@ -42,7 +42,7 @@ const Update = () => {
         </div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
-            <div className="row">
+          <div className="row">
               {/* Residence Name */}
               <div className="col-md-6 mb-3">
                 <label className="form-label" htmlFor="Name">
@@ -63,7 +63,8 @@ const Update = () => {
                     aria-label="Residence Name"
                     aria-describedby="basic-icon-default-residence-name"
                     htmlFor="Name"
-                    value={residence.Name || ''}
+                    name="Name"
+                    value={residence.Name}
                     onChange={handleChange}
                   />
                 </div>
@@ -89,7 +90,8 @@ const Update = () => {
                     aria-label="Owner Name"
                     aria-describedby="basic-icon-default-residence-Owner-name"
                     htmlFor="Owner"
-                    value={residence.Owner || ''}
+                    name="Owner"
+                    value={residence.Owner}
                     onChange={handleChange}
                   />
                 </div>
@@ -111,7 +113,8 @@ const Update = () => {
                     className="form-select"
                     aria-label="Select Residence Type"
                     htmlFor="Type"
-                    value={residence.Type || ''}
+                    name="Type"
+                    value={residence.Type}
                     onChange={handleChange}
                   >
                     <option value="Hotel">Hotel</option>
@@ -137,6 +140,7 @@ const Update = () => {
                     className="form-select"
                     aria-label="Select Residence Type"
                     htmlFor="Shared"
+                    name="Shared"
                     value={residence.Shared}
                     onChange={handleChange}
                   >
@@ -162,12 +166,12 @@ const Update = () => {
                     type="number"
                     className="form-control"
                     id="Rooms"
-                    name="Rooms"
                     placeholder="Rooms"
                     aria-label="Rooms"
                     aria-describedby="basic-icon-residence-rooms"
                     htmlFor="Rooms"
-                    value={residence.Rooms || ''}
+                    name="Rooms"
+                    value={residence.Rooms}
                     onChange={handleChange}
                   />
                 </div>
@@ -190,7 +194,8 @@ const Update = () => {
                     aria-label="Location"
                     aria-describedby="basic-icon-location"
                     htmlFor="Location"
-                    value={residence.Location || ''}
+                    name="Location"
+                    value={residence.Location}
                     onChange={handleChange}
                   />
                 </div>
@@ -212,12 +217,12 @@ const Update = () => {
                     type="number"
                     className="form-control"
                     id="Price"
-                    name="Price"
                     placeholder="Price"
                     aria-label="Price"
                     aria-describedby="basic-icon-residence-Price"
                     htmlFor="Price"
-                    value={residence.Price || ''}
+                    name="Price"
+                    value={residence.Price}
                     onChange={handleChange}
                   />
                 </div>
@@ -239,7 +244,8 @@ const Update = () => {
                     className="form-select"
                     aria-label="Select Price Type"
                     htmlFor="PriceType"
-                    value={residence.PriceType || ''}
+                    name="PriceType"
+                    value={residence.PriceType}
                     onChange={handleChange}
                   >
                     <option value="/Month">Per Month</option>
@@ -310,7 +316,8 @@ const Update = () => {
                     aria-label="Email"
                     aria-describedby="basic-icon-default-email"
                     htmlFor="Email"
-                    value={residence.Email || ''}
+                    name="Email"
+                    value={residence.Email}
                     onChange={handleChange}
                   />
                   <span
@@ -342,7 +349,8 @@ const Update = () => {
                     aria-label="Phone No"
                     aria-describedby="basic-icon-default-phone2"
                     htmlFor="Phoneno"
-                    value={residence.Phoneno || ''}
+                    name="Phoneno"
+                    value={residence.Phoneno}
                     onChange={handleChange}
                   />
                 </div>
@@ -365,11 +373,12 @@ const Update = () => {
                 <textarea
                   id="Description"
                   className="form-control"
-                  htmlFor="Description"
                   placeholder="Write about your Residence..."
                   aria-label="Write about your Residence..."
                   aria-describedby="basic-icon-default-description"
-                  value={residence.Description || ''}
+                  htmlFor="Description"
+                  name="Description"
+                  value={residence.Description}
                   onChange={handleChange}
                 ></textarea>
               </div>

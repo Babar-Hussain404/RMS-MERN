@@ -48,12 +48,12 @@ const Detail = () => {
 
                 {/* Buttons */}
                 <div className="d-flex btn-group mx-4">
-                  <a
+                  <Link
                     className="btn btn-warning"
-                    href="/Residences/Edit?Id=residence.Id"
+                    to={`/update/${residence._id}`}
                   >
                     <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
-                  </a>
+                  </Link>
 
                   <Link
                     to={`/${residence.Type}`}
