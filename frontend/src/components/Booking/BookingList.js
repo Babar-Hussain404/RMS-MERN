@@ -1,13 +1,20 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BookingContext from "../../context/bookings/BookingContext";
 
 const BookingList = () => {
-  const { bookings, getBookings } = useContext(BookingContext);
+  const { bookings, getBookings, deleteBooking } = useContext(BookingContext);
+const navigate = useNavigate();
 
   useEffect(() => {
     getBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bookings]);
+
+  const handleDelete = async (id) => {
+    deleteBooking(id);
+    navigate("/bookinglist");
+  };
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
@@ -41,7 +48,9 @@ const BookingList = () => {
                     <td>{booking.Resident}</td>
                     <td>{booking.Type}</td>
                     <td>{booking.ResidentPhone}</td>
-                    <td>Rs.{booking.Price} {booking.PriceType}</td>
+                    <td>
+                      Rs.{booking.Price} {booking.PriceType}
+                    </td>
                     <td className="text-center">
                       {new Date(booking.Date).toLocaleDateString()}
                     </td>
@@ -98,18 +107,12 @@ const BookingList = () => {
                         >
                           <span className="tf-icons bx bx-x-circle"></span>
                         </a>
-                        <a
-                          href="/Bookings/Delete?Id=@bookings.Id"
+                        <button
                           className="btn btn-icon btn-sm btn-outline-danger"
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-trash bx-xs'></i> <span>Delete</span>"
+                          onClick={() => handleDelete(booking._id)}
                         >
                           <span className="tf-icons bx bx-trash"></span>
-                        </a>
+                        </button>
                       </div>
                     </td>
                   </tr>

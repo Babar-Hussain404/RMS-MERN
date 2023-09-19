@@ -25,13 +25,14 @@ router.post("/addbooking/:id", fetchuser, async (req, res) => {
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
     const user = await User.findById(req.user.id);
+
     if (!user) {
       return res.json({
         message: "Login to book the residence.",
         type: "error",
       });
     }
-console.log(user)
+
     const bookingExists = await Booking.findOne({
       ResidenceId: req.params.id,
       ResidentId: req.user.id,
@@ -190,26 +191,16 @@ router.get("/getbooking/:id", fetchuser, async (req, res) => {
   }
 });
 
-//Route 5: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
-router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
+//Route 5: Delete an existing residence using: DELETE "/api/bookings/deletebooking/:id". Login required
+router.delete("/deletebooking/:id", fetchuser, async (req, res) => {
   try {
-    //if residence does not exist return error
-    let residence = await Residence.findById(req.params.id);
-    if (!residence) {
-      return res.status(404).send("Not Found");
-    }
-
-    //if unauthorized user accesses the residence retun error
-    if (residence.OwnerId.toString() !== req.user.id) {
-      {
-        return res.status(401).send("Not Allowed");
-      }
-    }
 
     //find residence by id and delete it
-    residence = await Residence.findByIdAndDelete(req.params.id);
+    const residence = await Booking.findByIdAndDelete(req.params.id);
+    
     res.json({
-      success: "Residence Deleted Successfully",
+      message: residence.Type + " Booking Deleted Successfully",
+      type: "success"
     });
 
     //catch errors

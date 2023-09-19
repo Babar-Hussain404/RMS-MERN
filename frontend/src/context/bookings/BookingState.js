@@ -53,7 +53,7 @@ const BookingState = (props) => {
     }
   };
 
-  const deleteResidence = async (id) => {
+  const deleteBooking = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/bookings/deletebooking/${id}`,
@@ -66,7 +66,9 @@ const BookingState = (props) => {
         }
       );
       const res = await response.json();
-      setBooking(res);
+
+      showAlert(res.message , res.type)
+      
     } catch (error) {
       console.error(error);
     }
@@ -79,7 +81,7 @@ const BookingState = (props) => {
         bookings,
         getBookings,
         updateResidence,
-        deleteResidence
+        deleteBooking
       }}
     >
       {props.children}
