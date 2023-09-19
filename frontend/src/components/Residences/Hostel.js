@@ -19,6 +19,29 @@ const Hostel = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const createbooking = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/bookings/addbooking/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      showAlert(data.message , "success");
+      navigate("/bookinglist")
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
       <div className="row d-flex justify-content-between">
@@ -46,7 +69,7 @@ const Hostel = () => {
         )}
         {residences.map(
           (residence) =>(
-              <Residence residence={residence} key={residence._id} />
+            <Residence residence={residence} key={residence._id} createbooking={createbooking}/>
             )
         )}
       </div>

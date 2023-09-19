@@ -1,10 +1,8 @@
 import { Link } from "react-router-dom";
-import React, { useContext } from "react";
-import BookingContext from "../../context/bookings/BookingContext";
+import React from "react";
 
 const Residence = (props) => {
-  const { residence } = props;
-  const { addBooking } = useContext(BookingContext);
+  const { residence, addBooking } = props;
 
   return (
     <div className="col-md-6 col-lg-4 mb-3">
