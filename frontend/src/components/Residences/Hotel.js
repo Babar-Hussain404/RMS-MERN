@@ -19,7 +19,7 @@ const Hotel = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createbooking = async (id) => {
+  const createBooking = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/bookings/addbooking/${id}`,
@@ -33,10 +33,14 @@ const Hotel = () => {
       );
 
       const data = await response.json();
-
-      showAlert(data.message , "success");
-      navigate("/bookinglist")
-
+      if (data.type === "error") {
+        showAlert(data.message, "error");
+      }
+      if (data.type === "success") {
+        showAlert(data.message, "success");
+        navigate("/bookinglist");
+      }
+      
     } catch (error) {
       console.error(error);
     }
@@ -67,11 +71,14 @@ const Hotel = () => {
             No Hotels available at the mments.Please check back later.
           </div>
         )}
-        {residences.map(
-          (residence) =>(
-              <Residence residence={residence} key={residence._id} createbooking={createbooking}/>
-            )
-        )}
+        {residences.map((residence) => (
+  <Residence
+    residence={residence}
+    key={residence._id}
+    createBooking={createBooking}
+  />
+))}
+
       </div>
     </div>
   );

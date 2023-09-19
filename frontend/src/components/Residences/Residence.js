@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 const Residence = (props) => {
-  const { residence, addBooking } = props;
+  const { residence, createBooking } = props;
 
   return (
     <div className="col-md-6 col-lg-4 mb-3">
@@ -59,7 +59,10 @@ const Residence = (props) => {
             </Link>
 
             {/* Book Button */}
-            <button className="btn btn-outline-primary" onClick={addBooking(residence._id)}>
+            <button
+              className="btn btn-outline-primary"
+              onClick={() => createBooking(residence._id)}
+            >
               Book
             </button>
           </div>
