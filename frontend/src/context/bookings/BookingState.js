@@ -6,7 +6,7 @@ const BookingState = (props) => {
   const [bookings, setBookings] = useState([]);
   const [booking, setBooking] = useState({});
   const { showAlert } = useContext(AlertContext);
-  
+
   const getBookings = async () => {
     try {
       const response = await fetch(
@@ -26,7 +26,7 @@ const BookingState = (props) => {
     }
   };
 
-  const updateResidence = async (id) => {
+  const updateBooking = async (id, status) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/bookings/updatebooking/${id}`,
@@ -36,24 +36,19 @@ const BookingState = (props) => {
             "Content-Type": "application/json",
             "auth-token": localStorage.getItem("token"),
           },
-          body: JSON.stringify(booking),
+          body: JSON.stringify({ Status: status }),
         }
       );
-      const data = await response.json();
+      const res = await response.json();
 
-      if (response.ok) {
-        showAlert(data.message, "success");
-      } else {
-        showAlert(`HTTP error! status: ${response.status}`, "danger");
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      showAlert(res.message, res.type);
     } catch (error) {
       console.error("Error creating the booking:", error);
       showAlert(`Error registering user: ${error}`, "danger");
     }
   };
 
-  const deleteResidence = async (id) => {
+  const deleteBooking = async (id) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/bookings/deletebooking/${id}`,
@@ -66,7 +61,8 @@ const BookingState = (props) => {
         }
       );
       const res = await response.json();
-      setBooking(res);
+
+      showAlert(res.message, res.type);
     } catch (error) {
       console.error(error);
     }
@@ -78,8 +74,8 @@ const BookingState = (props) => {
         booking,
         bookings,
         getBookings,
-        updateResidence,
-        deleteResidence
+        updateBooking,
+        deleteBooking,
       }}
     >
       {props.children}

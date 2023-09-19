@@ -1,13 +1,23 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import BookingContext from "../../context/bookings/BookingContext";
 
 const BookingList = () => {
-  const { bookings, getBookings } = useContext(BookingContext);
+  const { bookings, getBookings, deleteBooking, updateBooking } =
+    useContext(BookingContext);
 
   useEffect(() => {
     getBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bookings]);
+
+  const handleUpdate = async (id, status) => {
+    updateBooking(id, status);
+  };
+
+  const handleDelete = async (id) => {
+    deleteBooking(id);
+  };
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
@@ -41,7 +51,9 @@ const BookingList = () => {
                     <td>{booking.Resident}</td>
                     <td>{booking.Type}</td>
                     <td>{booking.ResidentPhone}</td>
-                    <td>Rs.{booking.Price} {booking.PriceType}</td>
+                    <td>
+                      Rs.{booking.Price} {booking.PriceType}
+                    </td>
                     <td className="text-center">
                       {new Date(booking.Date).toLocaleDateString()}
                     </td>
@@ -64,52 +76,26 @@ const BookingList = () => {
                     </td>
                     <td>
                       <div className="d-flex justify-content-around">
-                        <a
-                          href="/Bookings/Approved?Id=@bookings.Id"
+                        <button
+                          onClick={() => handleUpdate(booking._id, "Approved")}
                           className={`btn btn-icon btn-sm btn-outline-success
-                                            ${
-                                              bookings.Status === "Approved"
-                                                ? "disabled"
-                                                : ""
-                                            }`}
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-check-square bx-xs'></i> <span>Approve</span>"
+                        ${booking.Status === "Approved" ? "disabled" : ""}`}
                         >
                           <span className="tf-icons bx bx-check-square"></span>
-                        </a>
-                        <a
-                          href="/Bookings/Rejected?Id=@bookings.Id"
+                        </button>
+                        <button
+                          onClick={() => handleUpdate(booking._id, "Rejected")}
                           className={`btn btn-icon btn-sm btn-outline-warning mx-2
-                                            ${
-                                              bookings.Status === "Rejected"
-                                                ? "disabled"
-                                                : ""
-                                            }`}
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-x-circle bx-xs'></i> <span>Reject</span>"
+                        ${booking.Status === "Rejected" ? "disabled" : ""}`}
                         >
                           <span className="tf-icons bx bx-x-circle"></span>
-                        </a>
-                        <a
-                          href="/Bookings/Delete?Id=@bookings.Id"
+                        </button>
+                        <button
                           className="btn btn-icon btn-sm btn-outline-danger"
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-trash bx-xs'></i> <span>Delete</span>"
+                          onClick={() => handleDelete(booking._id)}
                         >
                           <span className="tf-icons bx bx-trash"></span>
-                        </a>
+                        </button>
                       </div>
                     </td>
                   </tr>
