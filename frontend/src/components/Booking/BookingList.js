@@ -3,17 +3,20 @@ import { useNavigate } from "react-router-dom";
 import BookingContext from "../../context/bookings/BookingContext";
 
 const BookingList = () => {
-  const { bookings, getBookings, deleteBooking } = useContext(BookingContext);
-const navigate = useNavigate();
+  const { bookings, getBookings, deleteBooking, updateBooking } =
+    useContext(BookingContext);
 
   useEffect(() => {
     getBookings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookings]);
 
+  const handleUpdate = async (id, status) => {
+    updateBooking(id, status);
+  };
+
   const handleDelete = async (id) => {
     deleteBooking(id);
-    navigate("/bookinglist");
   };
 
   return (
@@ -73,40 +76,20 @@ const navigate = useNavigate();
                     </td>
                     <td>
                       <div className="d-flex justify-content-around">
-                        <a
-                          href="/Bookings/Approved?Id=@bookings.Id"
+                        <button
+                          onClick={() => handleUpdate(booking._id, "Approved")}
                           className={`btn btn-icon btn-sm btn-outline-success
-                                            ${
-                                              bookings.Status === "Approved"
-                                                ? "disabled"
-                                                : ""
-                                            }`}
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-check-square bx-xs'></i> <span>Approve</span>"
+                        ${booking.Status === "Approved" ? "disabled" : ""}`}
                         >
                           <span className="tf-icons bx bx-check-square"></span>
-                        </a>
-                        <a
-                          href="/Bookings/Rejected?Id=@bookings.Id"
+                        </button>
+                        <button
+                          onClick={() => handleUpdate(booking._id, "Rejected")}
                           className={`btn btn-icon btn-sm btn-outline-warning mx-2
-                                            ${
-                                              bookings.Status === "Rejected"
-                                                ? "disabled"
-                                                : ""
-                                            }`}
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title=""
-                          data-bs-original-title="<i className='bx bx-x-circle bx-xs'></i> <span>Reject</span>"
+                        ${booking.Status === "Rejected" ? "disabled" : ""}`}
                         >
                           <span className="tf-icons bx bx-x-circle"></span>
-                        </a>
+                        </button>
                         <button
                           className="btn btn-icon btn-sm btn-outline-danger"
                           onClick={() => handleDelete(booking._id)}

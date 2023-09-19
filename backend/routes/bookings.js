@@ -90,53 +90,16 @@ router.post("/addbooking/:id", fetchuser, async (req, res) => {
 router.put("/updatebooking/:id", fetchuser, async (req, res) => {
   try {
     const {
-      Name,
-      Owner,
-      Type,
-      Rooms,
-      Shared,
-      Price,
-      PriceType,
-      Location,
-      Email,
-      Phoneno,
-      BookingPic,
+      Status
     } = req.body;
+    const updatedBooking = {};
 
-    const updatedRes = {};
     //store property values in object
-    if (Name) {
-      updatedRes.Name = Name;
+    if (Status === "Approved") {
+      updatedBooking.Status = Status;
     }
-    if (Owner) {
-      updatedRes.Owner = Owner;
-    }
-    if (Type) {
-      updatedRes.Type = Type;
-    }
-    if (Rooms) {
-      updatedRes.Rooms = Rooms;
-    }
-    if (Shared) {
-      updatedRes.Shared = Shared;
-    }
-    if (Price) {
-      updatedRes.Price = Price;
-    }
-    if (PriceType) {
-      updatedRes.PriceType = PriceType;
-    }
-    if (Location) {
-      updatedRes.Location = Location;
-    }
-    if (Email) {
-      updatedRes.Email = Email;
-    }
-    if (Phoneno) {
-      updatedRes.Phoneno = Phoneno;
-    }
-    if (BookingPic) {
-      updatedRes.BookingPic = BookingPic;
+    if (Status === "Rejected") {
+      updatedBooking.Status = Status;
     }
 
     //if booking does not exist return error
@@ -145,19 +108,13 @@ router.put("/updatebooking/:id", fetchuser, async (req, res) => {
       return res.status(404).send("Not Found");
     }
 
-    //if unauthorized user accesses the booking retun error
-    if (booking.OwnerId.toString() !== req.user.id) {
-      {
-        return res.status(401).send("Not Allowed");
-      }
-    }
     //find booking by id and update it
     booking = await Booking.findByIdAndUpdate(
       req.params.id,
-      { $set: updatedRes },
+      { $set: updatedBooking },
       { new: true }
     );
-    res.json({ message: updatedRes.Type + " Edited successfully" });
+    res.json({ message: " Booking " + Status + " Successfully", type: "success" });
 
     //catch errors
   } catch (error) {
