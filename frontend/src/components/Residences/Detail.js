@@ -37,8 +37,8 @@ const Detail = () => {
                 {/* Photo */}
                 <div className="d-flex justify-content-center align-items-sm-center m-5">
                   <img
-                    src="/assets/img/buildings/Hotel/Hotel-1.png"
-                    alt="building-img"
+          src={`data:image/png;base64,${residence.ResidencePic}`}
+          alt="building-img"
                     className="d-block rounded"
                     height="250"
                     width="250"
@@ -48,12 +48,12 @@ const Detail = () => {
 
                 {/* Buttons */}
                 <div className="d-flex btn-group mx-4">
-                  <a
+                  <Link
                     className="btn btn-warning"
-                    href="/Residences/Edit?Id=residence.Id"
+                    to={`/update/${residence._id}`}
                   >
                     <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
-                  </a>
+                  </Link>
 
                   <Link
                     to={`/${residence.Type}`}
