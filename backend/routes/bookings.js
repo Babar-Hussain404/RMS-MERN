@@ -123,31 +123,6 @@ router.put("/updatebooking/:id", fetchuser, async (req, res) => {
   }
 });
 
-//Route 4: Get an existing booking using: Get "/api/bookings/getbooking". Login required
-router.get("/getbooking/:id", fetchuser, async (req, res) => {
-  try {
-    //if booking does not exist return error
-    let booking = await Booking.findById(req.params.id);
-
-    if (!booking) {
-      return res.status(404).send("Not Found");
-    }
-
-    //if unauthorized user accesses the booking retun error
-    if (booking.OwnerId.toString() !== req.user.id) {
-      {
-        return res.status(401).send("Not Allowed");
-      }
-    }
-    res.json({ booking });
-
-    //catch errors
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
 //Route 5: Delete an existing residence using: DELETE "/api/bookings/deletebooking/:id". Login required
 router.delete("/deletebooking/:id", fetchuser, async (req, res) => {
   try {

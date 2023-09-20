@@ -3,13 +3,14 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
 const Residence = require("../models/Residence");
+const Booking = require("../models/Booking");
 
 //Route 1: Get all residences using: GET "/api/residences/getallresidences". Login required
 router.get("/getallresidences", fetchuser, async (req, res) => {
   try {
     const residences = await Residence.find({ OwnerId: req.user.id });
     res.json(residences);
-    if(residences){
+    if (residences) {
     }
 
     //catch errors
@@ -21,73 +22,106 @@ router.get("/getallresidences", fetchuser, async (req, res) => {
 
 //Route 2: Add a new residence using: POST "/api/residences/addresidence". Login required
 router.post("/addresidence", fetchuser, async (req, res) => {
-    try {
-      const {
-        Name,
-        Owner,
-        Type,
-        Rooms,
-        Shared,
-        Price,
-        PriceType,
-        Location,
-        Email,
-        Phoneno,
-        ResidencePic,
-      } = req.body;
+  try {
+    const {
+      Name,
+      Owner,
+      Type,
+      Rooms,
+      Shared,
+      Price,
+      PriceType,
+      Location,
+      Email,
+      Phoneno,
+      ResidencePic,
+    } = req.body;
 
-      // Validation errors
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-
-      // Create new residence in the database
-      const residence = new Residence({
-        OwnerId: req.user.id,
-        Name,
-        Owner,
-        Type,
-        Rooms,
-        Shared,
-        Price,
-        PriceType,
-        Location,
-        Email,
-        Phoneno,
-        ResidencePic
-      });
-
-      const savedResidence = await residence.save();
-
-      res.json(savedResidence);
-
-      // Catch errors
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
+    // Validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
+
+    // Create new residence in the database
+    const residence = new Residence({
+      OwnerId: req.user.id,
+      Name,
+      Owner,
+      Type,
+      Rooms,
+      Shared,
+      Price,
+      PriceType,
+      Location,
+      Email,
+      Phoneno,
+      ResidencePic,
+    });
+
+    const savedResidence = await residence.save();
+
+    res.json(savedResidence);
+
+    // Catch errors
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
-);
+});
 
 //Route 3: Update an existing residence using: PUT "/api/residences/updateresidence". Login required
 router.put("/updateresidence/:id", fetchuser, async (req, res) => {
   try {
-    const { Name, Owner, Type, Rooms, Shared, Price, PriceType, Location, Email, Phoneno, ResidencePic } = req.body;
+    const {
+      Name,
+      Owner,
+      Type,
+      Rooms,
+      Shared,
+      Price,
+      PriceType,
+      Location,
+      Email,
+      Phoneno,
+      ResidencePic,
+    } = req.body;
 
     const updatedRes = {};
     //store property values in object
-    if (Name) {updatedRes.Name = Name;}
-    if (Owner) {updatedRes.Owner = Owner;}
-    if (Type) {updatedRes.Type = Type;}
-    if (Rooms) {updatedRes.Rooms = Rooms;}
-    if (Shared) { updatedRes.Shared = Shared;}
-    if (Price) {updatedRes.Price = Price;}
-    if (PriceType) {updatedRes.PriceType = PriceType;}
-    if (Location) {updatedRes.Location = Location;}
-    if (Email) { updatedRes.Email = Email;}
-    if (Phoneno) {updatedRes.Phoneno = Phoneno;}
-    if (ResidencePic) {updatedRes.ResidencePic = ResidencePic;}
+    if (Name) {
+      updatedRes.Name = Name;
+    }
+    if (Owner) {
+      updatedRes.Owner = Owner;
+    }
+    if (Type) {
+      updatedRes.Type = Type;
+    }
+    if (Rooms) {
+      updatedRes.Rooms = Rooms;
+    }
+    if (Shared) {
+      updatedRes.Shared = Shared;
+    }
+    if (Price) {
+      updatedRes.Price = Price;
+    }
+    if (PriceType) {
+      updatedRes.PriceType = PriceType;
+    }
+    if (Location) {
+      updatedRes.Location = Location;
+    }
+    if (Email) {
+      updatedRes.Email = Email;
+    }
+    if (Phoneno) {
+      updatedRes.Phoneno = Phoneno;
+    }
+    if (ResidencePic) {
+      updatedRes.ResidencePic = ResidencePic;
+    }
 
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
@@ -107,7 +141,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
       { $set: updatedRes },
       { new: true }
     );
-    res.json({ message : updatedRes.Type +" Edited successfully" });
+    res.json({ message: updatedRes.Type + " Edited successfully" });
 
     //catch errors
   } catch (error) {
@@ -121,7 +155,7 @@ router.get("/getresidence/:id", fetchuser, async (req, res) => {
   try {
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
-console.log(residence)
+    console.log(residence);
 
     if (!residence) {
       return res.status(404).send("Not Found");
@@ -145,7 +179,7 @@ console.log(residence)
 //Route 5: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
 router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
   try {
-    console.log(req.params.id)
+    console.log(req.params.id);
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
     if (!residence) {
@@ -159,10 +193,14 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
       }
     }
 
-    //find residence by id and delete it
+    // Delete bookings associated with the residence
+    await Booking.deleteMany({ ResidenceId: req.params.id });
+
+    // Delete the residence itself
     residence = await Residence.findByIdAndDelete(req.params.id);
     res.json({
-      success: "Residence Deleted Successfully"
+      success: "Residence Deleted Successfully",
+      type: "success",
     });
 
     //catch errors
