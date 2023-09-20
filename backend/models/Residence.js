@@ -51,10 +51,7 @@ const ResidenceSchema = new mongoose.Schema({
       match: /^[0-9]{11}$/
    },
    ResidencePic: {
-      type: String,
-      required: true,
-      minlength: 5,
-      maxlength: 50
+      type: String
    }
 });
 

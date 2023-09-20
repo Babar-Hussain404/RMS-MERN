@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AlertContext from "../../context/alerts/AlertContext";
 
@@ -17,7 +17,7 @@ const Add = () => {
     Location: "Test Location 3",
     Email: "test3@example.com",
     Phoneno: "12345678901",
-    ResidencePic: "http://example.com/image3.jpg",
+    ResidencePic: "",
   });
 
   const handleChange = async (e) => {
@@ -435,14 +435,14 @@ const Add = () => {
 
             {/* Select Residence Image */}
             <div className="mb-3">
-              <label htmlFor="ResidenceImage" className="form-label">
+              <label htmlFor="ResidencePic" className="form-label">
                 Select Residence Image
               </label>
               <input
                 className="form-control"
                 type="file"
-                htmlFor="ResidenceImage"
-                name="ResidenceImage"
+                htmlFor="ResidencePic"
+                name="ResidencePic"
                 onChange={handleChange}
               />
             </div>

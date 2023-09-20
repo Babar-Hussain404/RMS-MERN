@@ -10,7 +10,7 @@ const Residence = (props) => {
         {/* Residence Image*/}
         <img
           className="card-img-top"
-          src="/assets/img/buildings/Hotel/Hotel-1.png"
+          src={`data:image/png;base64,${residence.ResidencePic}`}
           alt="Hotel-1"
         />
 

@@ -52,8 +52,8 @@ const Delete = () => {
                 {/* Photo */}
                 <div className="d-flex justify-content-center align-items-sm-center m-5">
                   <img
-                    src="/assets/img/buildings/Hotel/Hotel-1.png"
-                    alt="building-img"
+          src={`data:image/png;base64,${residence.ResidencePic}`}
+          alt="building-img"
                     className="d-block rounded"
                     height="250"
                     width="250"
