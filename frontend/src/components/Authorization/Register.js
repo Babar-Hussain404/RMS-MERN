@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import Logo from "../Shared/Logo";
 import { Link, useNavigate } from "react-router-dom";
 import AlertContext from "../../context/alerts/AlertContext";
+import UserContext from "../../context/user/UserContext";
 
 const Register = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertContext);
+  const { getUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     FName: "John",
@@ -18,39 +20,38 @@ const Register = () => {
     CNIC: "12345-6789012-3",
     Phoneno: "12345678901",
     Address: "123 Main Street",
-    ProfilePic: "profile_pic_url.jpg",
+    ProfilePic: "",
     TermsAndConditions: true,
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
+  const handleChange = async (e) => {
+    const { name, value, type, files } = e.target;
+    if (type === "file") {
+      const selectedFile = files[0];
+      const base64String = await convertFileToBase64(selectedFile);
+      setFormData({
+        ...formData,
+        [name]: base64String,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
+
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]); // Get rid of the data:image/...;base64,
+      reader.onerror = (error) => reject(error);
     });
   };
 
-  // const handleFileChange = async (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   const base64String = await convertFileToBase64(selectedFile);
-  //   setFormData({
-  //     ...formData,
-  //     imageUrl: base64String,
-  //   });
-  // };
-
-  // const convertFileToBase64 = (file) => {
-  //   return new Promise((resolve, reject) => {
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  //     reader.onload = () => resolve(reader.result);
-  //     reader.onerror = (error) => reject(error);
-  //   });
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData.ProfilePic);
     try {
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -59,19 +60,16 @@ const Register = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log(response);
-      const data = await response.json();
 
-      if (response.ok) {
-        console.log(data);
+      const res = await response.json();
+
+      if (res.type === "error") {
+        showAlert(res.message, res.type);
       } else {
-        showAlert(`HTTP error! status: ${response.status}`, "danger");
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      if (data.success) {
-        localStorage.setItem("token", data.authtoken);
+        localStorage.setItem("token", res.authtoken);
         navigate("/");
         showAlert("Account Created Successfully", "success");
+        getUser();
       }
     } catch (error) {
       console.error("Error registering user:", error);
