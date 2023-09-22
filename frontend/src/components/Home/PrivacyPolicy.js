@@ -1,12 +1,6 @@
-import React, { useContext, useEffect } from "react";
-import AlertContext from "../../context/alerts/AlertContext";
+import React from "react";
 
 const PrivacyPolicy = () => {
-  const { showAlert } = useContext(AlertContext);
-
-  useEffect(()=>{
-    showAlert("You are viewing Privacy policy","info")
-  },[])
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">

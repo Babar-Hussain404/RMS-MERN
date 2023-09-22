@@ -72,8 +72,8 @@ router.post("/addbooking/:id", fetchuser, async (req, res) => {
     });
 
     const savedBooking = await booking.save();
-    console.log(savedBooking);
-
+    if (savedBooking) {
+    }
     res.json({
       message: residence.Type + " Booked successfully",
       type: "success",
@@ -89,9 +89,7 @@ router.post("/addbooking/:id", fetchuser, async (req, res) => {
 //Route 3: Update an existing booking using: PUT "/api/bookings/updatebooking". Login required
 router.put("/updatebooking/:id", fetchuser, async (req, res) => {
   try {
-    const {
-      Status
-    } = req.body;
+    const { Status } = req.body;
     const updatedBooking = {};
 
     //store property values in object
@@ -114,7 +112,10 @@ router.put("/updatebooking/:id", fetchuser, async (req, res) => {
       { $set: updatedBooking },
       { new: true }
     );
-    res.json({ message: " Booking " + Status + " Successfully", type: "success" });
+    res.json({
+      message: " Booking " + Status + " Successfully",
+      type: "success",
+    });
 
     //catch errors
   } catch (error) {
@@ -126,13 +127,12 @@ router.put("/updatebooking/:id", fetchuser, async (req, res) => {
 //Route 5: Delete an existing residence using: DELETE "/api/bookings/deletebooking/:id". Login required
 router.delete("/deletebooking/:id", fetchuser, async (req, res) => {
   try {
-
     //find residence by id and delete it
     const residence = await Booking.findByIdAndDelete(req.params.id);
-    
+
     res.json({
       message: residence.Type + " Booking Deleted Successfully",
-      type: "success"
+      type: "success",
     });
 
     //catch errors

@@ -155,7 +155,6 @@ router.get("/getresidence/:id", fetchuser, async (req, res) => {
   try {
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
-    console.log(residence);
 
     if (!residence) {
       return res.status(404).send("Not Found");
@@ -179,7 +178,6 @@ router.get("/getresidence/:id", fetchuser, async (req, res) => {
 //Route 5: Delete an existing residence using: DELETE "/api/residences/deleteresidence". Login required
 router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
   try {
-    console.log(req.params.id);
     //if residence does not exist return error
     let residence = await Residence.findById(req.params.id);
     if (!residence) {

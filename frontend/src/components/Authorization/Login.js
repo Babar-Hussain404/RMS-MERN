@@ -10,7 +10,7 @@ const Login = () => {
   const { getUser } = useContext(UserContext);
   
   const [loginData, setLoginData] = useState({
-    Email: "john.doe@example.com",
+    Email: "john.dp@example.com",
     Password: "pass123",
   });
 
