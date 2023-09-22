@@ -42,8 +42,8 @@ const Profile = () => {
                 {/* Photo */}
                 <div className="d-flex justify-content-center align-items-sm-center m-4">
                   <img
-                    src="/assets/img/avatars/1.png"
-                    alt="User-Image"
+                    src={`data:image/png;base64,${user.ProfilePic}`}
+                    alt="Profile pic"
                     className="d-block rounded"
                     height="250"
                     width="250"
@@ -53,9 +53,7 @@ const Profile = () => {
 
                 {/* Buttons */}
                 <div className="d-flex justify-content-around mb-2">
-                  <Link to='/updateprofile'
-                    className="btn btn-info"
-                  >
+                  <Link to="/updateprofile" className="btn btn-info">
                     <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
                   </Link>
                 </div>

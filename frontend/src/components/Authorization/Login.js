@@ -2,12 +2,15 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from "../Shared/Logo";
 import AlertContext from "../../context/alerts/AlertContext";
+import UserContext from "../../context/user/UserContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertContext);
+  const { getUser } = useContext(UserContext);
+  
   const [loginData, setLoginData] = useState({
-    Email: "john.doe@example.com",
+    Email: "john.dp@example.com",
     Password: "pass123",
   });
 
@@ -43,6 +46,7 @@ const Login = () => {
         localStorage.setItem("token", data.authtoken);
         navigate("/");
         showAlert("Logged in Successfully", "success");
+        getUser();
       }
     } catch (error) {
       console.error("Error loggin in:", error);

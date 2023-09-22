@@ -63,8 +63,8 @@ const Topnav = () => {
             >
               <div className="avatar avatar-online">
                 <img
-                  src="../assets/img/avatars/1.png"
-                  alt="assets"
+                  src={`data:image/png;base64,${user.ProfilePic}`}
+                  alt="Profile pic"
                   className="w-px-40 h-auto rounded-circle"
                 />
               </div>
@@ -76,8 +76,8 @@ const Topnav = () => {
                     <div className="flex-shrink-0 me-3">
                       <div className="avatar avatar-online">
                         <img
-                          src="../assets/img/avatars/1.png"
-                          alt="User avatar"
+                          src={`data:image/png;base64,${user.ProfilePic}`}
+                          alt="Profile pic"
                           className="w-px-40 h-auto rounded-circle"
                         />
                       </div>

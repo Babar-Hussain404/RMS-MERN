@@ -23,7 +23,7 @@ router.post("/register",
       // Check if the user with the email already exists
       let user = await User.findOne({ Email: req.body.Email });
       if (user) {
-        return res.status(400).json({ success: success, error: "User with this email already exists" });
+        return res.status(400).json({message: "User with this email already exists", type: "error"});
       }
 
       // Encrypt password
