@@ -1,10 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AlertContext from "../../context/alerts/AlertContext";
+import ResidenceContext from "../../context/residences/ResidenceContext";
 
 const Add = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertContext);
+  const { facilities, getFacilities } = useContext(ResidenceContext);
+
+  useEffect(() => {
+    getFacilities();
+  }, []);
 
   const [formData, setFormData] = useState({
     Name: "H1",
@@ -18,6 +24,10 @@ const Add = () => {
     Email: "test3@example.com",
     Phoneno: "12345678901",
     ResidencePic: "",
+    Facilities: [
+      { Name: 'TV', Icon: 'bx bx-tv', IsSelected: true },
+      { Name: 'Wifi', Icon: 'bx bx-wifi', IsSelected: true },
+    ]
   });
 
   const handleChange = async (e) => {
@@ -305,46 +315,36 @@ const Add = () => {
             </div>
 
             {/* Facilities */}
-            <div className="mb-3">
-              <label
-                className="form-label"
-                htmlFor="basic-icon-residence-facilities"
-              >
-                Select Facilities
-              </label>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="form-check form-switch mb-2">
-                    <input
-                      className="form-check-input check"
-                      type="checkbox"
-                      name="Facilities[@i].IsSelected"
-                      id="Facility_@i"
-                    />
-                    <input
-                      type="hidden"
-                      htmlFor="@Model.Facilities[i].FacilityId"
-                    />
-                    <input
-                      type="text"
-                      htmlFor="@Model.Facilities[i].Name"
-                      hidden
-                    />
-                    <input
-                      type="text"
-                      htmlFor="@Model.Facilities[i].Icon"
-                      hidden
-                    />
-                    <label
-                      className="form-check-label btn btn-outline-primary w-100 text-start"
-                      htmlFor="Facility_@i"
-                    >
-                      <i className="@Model.Facilities[i].Icon"></i>
-                      &nbsp;@Model.Facilities[i].Name
-                    </label>
+            <label
+              className="form-label"
+              htmlFor="Facilities"
+            >
+              Select Facilities
+            </label>
+            <div className="row">
+              {facilities.map((facility) => (
+                <div key={facility._id} className="col-md-4">
+                  <div className="mb-3">
+                    <div className="form-check form-switch mb-2">
+                      <input
+                        className="form-check-input check"
+                        type="checkbox"
+                        name={`${facility.Name}`}
+                        value={`${formData.Facilities.IsSelected}`}
+                        onChange={handleChange}
+                        id={`Facility_${facility._id}`}
+                      />
+                      <label
+                        className="form-check-label btn btn-outline-primary w-100 text-start"
+                        htmlFor={`Facility_${facility._id}`}
+                      >
+                        <i className={`${facility.Icon}`}></i>
+                        &nbsp;{facility.Name}
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
 
             <div className="row">
