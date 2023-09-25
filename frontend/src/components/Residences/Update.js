@@ -5,7 +5,9 @@ import ResidenceContext from "../../context/residences/ResidenceContext";
 const Update = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const { residence, setResidence, updateResidence, getResidenceDetails } = useContext(ResidenceContext);
+  const { residence, setResidence, updateResidence, getResidenceDetails } =
+    useContext(ResidenceContext);
+    const [selectedFacilities, setSelectedFacilities] = useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,6 +17,13 @@ const Update = () => {
     });
   };
 
+  const handleFacilityChange = (index) => {
+    const updatedFacilities = [...residence.Facilities];
+    updatedFacilities[index].IsSelected = !updatedFacilities[index].IsSelected;
+    setSelectedFacilities(updatedFacilities);
+    console.log(updatedFacilities);
+  };
+
   useEffect(() => {
     getResidenceDetails(id);
   }, []);
@@ -22,7 +31,7 @@ const Update = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     updateResidence(id);
-    navigate("/"+residence.Type);
+    navigate("/" + residence.Type);
   };
 
   return (
@@ -42,7 +51,7 @@ const Update = () => {
         </div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
-          <div className="row">
+            <div className="row">
               {/* Residence Name */}
               <div className="col-md-6 mb-3">
                 <label className="form-label" htmlFor="Name">
@@ -256,46 +265,32 @@ const Update = () => {
             </div>
 
             {/* Facilities */}
-            <div className="mb-3">
-              <label
-                className="form-label"
-                htmlFor="basic-icon-residence-facilities"
-              >
-                Select Facilities
-              </label>
-              <div className="row">
-                <div className="col-md-4">
-                  <div className="form-check form-switch mb-2">
-                    <input
-                      className="form-check-input check"
-                      type="checkbox"
-                      name="Facilities[@i].IsSelected"
-                      id="Facility_@i"
-                    />
-                    <input
-                      type="hidden"
-                      htmlFor="@Model.Facilities[i].FacilityId"
-                    />
-                    <input
-                      type="text"
-                      htmlFor="@Model.Facilities[i].Name"
-                      hidden
-                    />
-                    <input
-                      type="text"
-                      htmlFor="@Model.Facilities[i].Icon"
-                      hidden
-                    />
-                    <label
-                      className="form-check-label btn btn-outline-primary w-100 text-start"
-                      htmlFor="Facility_@i"
-                    >
-                      <i className="@Model.Facilities[i].Icon"></i>
-                      &nbsp;@Model.Facilities[i].Name
-                    </label>
+            <label className="form-label" htmlFor="Facilities">
+              Select Facilities
+            </label>
+            <div className="row">
+              {residence.Facilities.map((facility, index) => (
+                <div key={index} className="col-md-4">
+                  <div className="mb-3">
+                    <div className="form-check form-switch mb-2">
+                      <input
+                        className="form-check-input check"
+                        type="checkbox"
+                        checked={facility.IsSelected}
+                        onChange={() => handleFacilityChange(index)}
+                        id={`${index}`}
+                      />
+                      <label
+                        className="form-check-label btn btn-outline-primary w-100 text-start"
+                        htmlFor={`${index}`}
+                      >
+                        <i className={`${facility.Icon}`}></i>
+                        &nbsp;{facility.Name}
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
 
             <div className="row">
