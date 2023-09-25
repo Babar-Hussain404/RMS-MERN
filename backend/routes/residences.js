@@ -88,6 +88,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
       Email,
       Phoneno,
       ResidencePic,
+      Facilities
     } = req.body;
 
     const updatedRes = {};
@@ -124,6 +125,9 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
     }
     if (ResidencePic) {
       updatedRes.ResidencePic = ResidencePic;
+    }
+    if (Facilities) {
+      updatedRes.Facilities = Facilities;
     }
 
     //if residence does not exist return error
