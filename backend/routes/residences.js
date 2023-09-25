@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const fetchuser = require("../middleware/fetchuser");
 const Residence = require("../models/Residence");
 const Booking = require("../models/Booking");
+const Facility = require("../models/Facility");
 
 //Route 1: Get all residences using: GET "/api/residences/getallresidences". Login required
 router.get("/getallresidences", fetchuser, async (req, res) => {
@@ -200,6 +201,21 @@ router.delete("/deleteresidence/:id", fetchuser, async (req, res) => {
       success: "Residence Deleted Successfully",
       type: "success",
     });
+
+    //catch errors
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+//Route 6: Get all facilities using: GET "/api/residences/getfacilities". Login required
+router.get("/getfacilities", fetchuser, async (req, res) => {
+  try {
+    const facilities = await Facility.find({});
+    res.json(facilities);
+    if (facilities) {
+    }
 
     //catch errors
   } catch (error) {

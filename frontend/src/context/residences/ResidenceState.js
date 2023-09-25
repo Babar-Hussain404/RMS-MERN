@@ -4,6 +4,7 @@ import AlertContext from "../alerts/AlertContext";
 
 const ResidenceState = (props) => {
   const [residences, setResidences] = useState([]);
+  const [facilities, setFacilities] = useState([]);
   const [residence, setResidence] = useState({});
   const { showAlert } = useContext(AlertContext);
 
@@ -172,19 +173,43 @@ const ResidenceState = (props) => {
     }
   };
 
+  const getFacilities = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/residences/getfacilities",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
+      const facilities = await response.json();
+      setFacilities(facilities); // Update the facilities state with the fetched data
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <ResidenceContext.Provider
       value={{
-        residence,
         residences,
-        getHotels,
         getHouses,
+        getHotels,
         getHostels,
-        setResidence,
         getResidences,
+
+        residence,
+        setResidence,
         deleteResidence,
         updateResidence,
         getResidenceDetails,
+        
+        facilities,
+        getFacilities,
       }}
     >
       {props.children}
