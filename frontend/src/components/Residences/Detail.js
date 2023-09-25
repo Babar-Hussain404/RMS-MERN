@@ -37,8 +37,8 @@ const Detail = () => {
                 {/* Photo */}
                 <div className="d-flex justify-content-center align-items-sm-center m-5">
                   <img
-          src={`data:image/png;base64,${residence.ResidencePic}`}
-          alt="building-img"
+                    src={`data:image/png;base64,${residence.ResidencePic}`}
+                    alt="building-img"
                     className="d-block rounded"
                     height="250"
                     width="250"
@@ -91,11 +91,21 @@ const Detail = () => {
                     <div className="col-sm-3">Price {residence.PriceType}:</div>
                     <div className="col-sm-9">Rs.{residence.Price}</div>
 
-                    <div className="col-sm-3">Facilities:</div>
-
-                    <div className="col-sm-3">
-                      <i className="residence.Facilities[i].Icon"></i>
-                      &nbsp;residence.Facilities[i].Name
+                    {/* Facilities */}
+                    <div className="fw-bold mt-2">Facilities</div>
+                    <div className="row">
+                      {residence.Facilities ? (
+                        residence.Facilities.map((facility) =>
+                          facility.IsSelected ? (
+                            <div key={facility._id} className="col-sm-3">
+                              <i className={`${facility.Icon}`}></i>
+                              &nbsp;{facility.Name}
+                            </div>
+                          ) : null
+                        )
+                      ) : (
+                        <div className="col-sm-9">No Facilities provided.</div>
+                      )}
                     </div>
                   </div>
 

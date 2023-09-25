@@ -36,6 +36,7 @@ router.post("/addresidence", fetchuser, async (req, res) => {
       Email,
       Phoneno,
       ResidencePic,
+      Facilities
     } = req.body;
 
     // Validation errors
@@ -58,6 +59,7 @@ router.post("/addresidence", fetchuser, async (req, res) => {
       Email,
       Phoneno,
       ResidencePic,
+      Facilities
     });
 
     const savedResidence = await residence.save();

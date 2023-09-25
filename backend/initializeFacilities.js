@@ -17,38 +17,47 @@ async function initializeFacilities() {
   const facilitiesData = [
     {
       Name: "TV",
-      Icon: "bx bx-tv"
+      Icon: "bx bx-tv",
+      IsSelected: false
     },    {
         Name : "Wifi",
-        Icon : "bx bx-wifi"
+        Icon : "bx bx-wifi",
+        IsSelected: false
     },
     {
         Name : "Fridge",
-        Icon : "bx bx-fridge"
+        Icon : "bx bx-fridge",
+        IsSelected: false
     },
     {
         Name : "AC",
-        Icon : "fa-regular fa-snowflake"
+        Icon : "fa-regular fa-snowflake",
+        IsSelected: false
     },
     {
         Name : "Mess",
-        Icon : "bx bx-food-menu"
+        Icon : "bx bx-food-menu",
+        IsSelected: false
     },
     {
         Name : "Parking",
-        Icon : "bx bxs-parking"
+        Icon : "bx bxs-parking",
+        IsSelected: false
     },
     {
         Name : "Laundry",
-        Icon : "bx bxs-washer"
+        Icon : "bx bxs-washer",
+        IsSelected: false
     },
     {
         Name : "Security",
-        Icon : "bx bx-cctv"
+        Icon : "bx bx-cctv",
+        IsSelected: false
     },
     {
         Name : "Wheelchair Accessable",
         Icon : "fa-solid fa-wheelchair",
+        IsSelected: false
     }
   ];
 
@@ -57,9 +66,10 @@ async function initializeFacilities() {
     console.log('Facilities data initialized successfully');
   } catch (error) {
     console.error('Error initializing facilities data:', error);
-  } finally {
-    mongoose.connection.close();
-  }
+  } 
+  // finally {
+  //   mongoose.connection.close();
+  // }
 }
 
 module.exports = initializeFacilities;

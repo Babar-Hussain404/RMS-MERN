@@ -68,7 +68,7 @@ const Hotel = () => {
       <div className="row">
         {residences.length === 0 && (
           <div className="card p-2">
-            No Hotels available at the mments.Please check back later.
+            No Hotels available at the moment. Please check back later.
           </div>
         )}
         {residences.map((residence) => (
