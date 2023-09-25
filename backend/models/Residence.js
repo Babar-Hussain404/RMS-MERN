@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const residenceFacilitiesSchema = new mongoose.Schema({
    Name: String,
    Icon: String,
-   IsSelected: Boolean,
+   IsSelected: {type: Boolean,default: false},
    ResidenceId: {
      type: mongoose.Schema.Types.ObjectId,
      ref: 'residences' // This references the 'residences' collection

@@ -67,7 +67,7 @@ const House = () => {
       <div className="row">
         {residences.length === 0 && (
           <div className="card p-2">
-            No Houses available at the mments.Please check back later.
+            No Houses available at the moment. Please check back later.
           </div>
         )}
         {residences.map((residence) => (

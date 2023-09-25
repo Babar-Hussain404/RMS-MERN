@@ -7,28 +7,64 @@ const Add = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertContext);
   const { facilities, getFacilities } = useContext(ResidenceContext);
+  const [selectedFacilities, setSelectedFacilities] = useState([
+    {
+      Name: "TV",
+      Icon: "bx bx-tv",
+      IsSelected: false
+    },    {
+        Name : "Wifi",
+        Icon : "bx bx-wifi",
+        IsSelected: false
+    },
+    {
+        Name : "Fridge",
+        Icon : "bx bx-fridge",
+        IsSelected: false
+    },
+    {
+        Name : "AC",
+        Icon : "fa-regular fa-snowflake",
+        IsSelected: false
+    },
+    {
+        Name : "Mess",
+        Icon : "bx bx-food-menu",
+        IsSelected: false
+    },
+    {
+        Name : "Parking",
+        Icon : "bx bxs-parking",
+        IsSelected: false
+    },
+    {
+        Name : "Laundry",
+        Icon : "bx bxs-washer",
+        IsSelected: false
+    },
+    {
+        Name : "Security",
+        Icon : "bx bx-cctv",
+        IsSelected: false
+    },
+    {
+        Name : "Wheelchair Accessable",
+        Icon : "fa-solid fa-wheelchair",
+        IsSelected: false
+    }
+  ]);
 
   useEffect(() => {
     getFacilities();
   }, []);
 
-  const [formData, setFormData] = useState({
-    Name: "H1",
-    Owner: "Please do nothing 3",
-    Type: "House",
-    Rooms: 3,
-    Shared: "Yes",
-    Price: 3000,
-    PriceType: "/Day",
-    Location: "Test Location 3",
-    Email: "test3@example.com",
-    Phoneno: "12345678901",
-    ResidencePic: "",
-    Facilities: [
-      { Name: 'TV', Icon: 'bx bx-tv', IsSelected: true },
-      { Name: 'Wifi', Icon: 'bx bx-wifi', IsSelected: true },
-    ]
-  });
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      Facilities: selectedFacilities,
+    });
+    console.log(formData.Facilities);
+  }, []);
 
   const handleChange = async (e) => {
     const { name, value, type, files } = e.target;
@@ -45,6 +81,27 @@ const Add = () => {
         [name]: value,
       });
     }
+  };
+
+  const [formData, setFormData] = useState({
+    Name: "H1",
+    Owner: "Please do nothing 3",
+    Type: "House",
+    Rooms: 3,
+    Shared: "Yes",
+    Price: 3000,
+    PriceType: "/Day",
+    Location: "Test Location 3",
+    Email: "test3@example.com",
+    Phoneno: "12345678901",
+    ResidencePic: "",
+  });
+
+  const handleFacilityChange = (index) => {
+    const updatedFacilities = [...selectedFacilities];
+    updatedFacilities[index].IsSelected = !updatedFacilities[index].IsSelected;
+    setSelectedFacilities(updatedFacilities);
+    console.log(updatedFacilities);
   };
 
   const convertFileToBase64 = (file) => {
@@ -315,28 +372,24 @@ const Add = () => {
             </div>
 
             {/* Facilities */}
-            <label
-              className="form-label"
-              htmlFor="Facilities"
-            >
+            <label className="form-label" htmlFor="Facilities">
               Select Facilities
             </label>
             <div className="row">
-              {facilities.map((facility) => (
-                <div key={facility._id} className="col-md-4">
+              {selectedFacilities.map((facility, index) => (
+                <div key={index} className="col-md-4">
                   <div className="mb-3">
                     <div className="form-check form-switch mb-2">
                       <input
                         className="form-check-input check"
                         type="checkbox"
-                        name={`${facility.Name}`}
-                        value={`${formData.Facilities.IsSelected}`}
-                        onChange={handleChange}
-                        id={`Facility_${facility._id}`}
+                        checked={facility.IsSelected}
+                        onChange={() => handleFacilityChange(index)}
+                        id={`${index}`}
                       />
                       <label
                         className="form-check-label btn btn-outline-primary w-100 text-start"
-                        htmlFor={`Facility_${facility._id}`}
+                        htmlFor={`${index}`}
                       >
                         <i className={`${facility.Icon}`}></i>
                         &nbsp;{facility.Name}
