@@ -1,17 +1,12 @@
 import { Outlet } from "react-router-dom";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import Sidenav from "./Sidenav";
 import Topnav from "./Topnav";
 import Footer from "./Footer";
 import Alert from "./Alert";
-import UserContext from "../../context/user/UserContext";
 
 const Layout = () => {
-  // const { user, getUser } = useContext(UserContext);
-  // useEffect(()=>{
-  //   getUser();
-  // },[])
-//base64 image then authorization.
+
   return (
     <>
       {/* Layout wrapper */}

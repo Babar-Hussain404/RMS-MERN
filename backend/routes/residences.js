@@ -9,7 +9,7 @@ const Facility = require("../models/Facility");
 //Route 1: Get all residences using: GET "/api/residences/getallresidences". Login required
 router.get("/getallresidences", fetchuser, async (req, res) => {
   try {
-    const residences = await Residence.find({ OwnerId: req.user.id });
+    const residences = await Residence.find({});
     res.json(residences);
     if (residences) {
     }

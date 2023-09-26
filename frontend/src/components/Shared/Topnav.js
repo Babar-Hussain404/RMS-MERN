@@ -16,7 +16,7 @@ const Topnav = () => {
       showAlert(`Please login to view profile`, "info");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -30,7 +30,7 @@ const Topnav = () => {
       id="layout-navbar"
     >
       <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-        <a className="nav-item nav-link px-0 me-xl-4" href="#">
+        <a className="nav-item nav-link px-0 me-xl-4" href="">
           <i className="bx bx-menu bx-sm"></i>
         </a>
       </div>
@@ -56,22 +56,25 @@ const Topnav = () => {
         <ul className="navbar-nav flex-row align-items-center ms-auto">
           {/* User */}
           <li className="nav-item navbar-dropdown dropdown-user dropdown">
-            <a
-              className="nav-link dropdown-toggle hide-arrow"
-              href="#"
-              data-bs-toggle="dropdown"
-            >
-              <div className="avatar avatar-online">
-                <img
-                  src={`data:image/png;base64,${user.ProfilePic}`}
-                  alt="Profile pic"
-                  className="w-px-40 h-auto rounded-circle"
-                />
-              </div>
-            </a>
+            {user.ProfilePic && (
+              <a
+                className="nav-link dropdown-toggle hide-arrow"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+                <div className="avatar avatar-online">
+                  <img
+                    src={`data:image/png;base64,${user.ProfilePic}`}
+                    alt="Profile pic"
+                    className="w-px-40 h-auto rounded-circle"
+                  />
+                </div>
+              </a>
+            )}
+
             <ul className="dropdown-menu dropdown-menu-end">
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="">
                   <div className="d-flex">
                     <div className="flex-shrink-0 me-3">
                       <div className="avatar avatar-online">
