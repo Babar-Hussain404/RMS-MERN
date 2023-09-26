@@ -8,8 +8,9 @@ const fetchuser = require("../middleware/fetchuser");
 const JWT_SECRET = "jwt_token";
 
 //Route 1:  Create a User using: POST "/api/auth/register" No login required
-router.post("/register",
-  
+router.post(
+  "/register",
+
   async (req, res) => {
     let success = false;
 
@@ -23,7 +24,10 @@ router.post("/register",
       // Check if the user with the email already exists
       let user = await User.findOne({ Email: req.body.Email });
       if (user) {
-        return res.status(400).json({message: "User with this email already exists", type: "error"});
+        return res.status(400).json({
+          message: "User with this email already exists",
+          type: "error",
+        });
       }
 
       // Encrypt password
@@ -57,7 +61,6 @@ router.post("/register",
       success = true;
 
       res.json({ success, authtoken });
-
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -66,15 +69,16 @@ router.post("/register",
 );
 
 //Route 2:  Authenticator a User using: POST "/api/auth/login" No login required
-router.post("/login",
-  
-//Validation errors
+router.post(
+  "/login",
+
+  //Validation errors
   async (req, res) => {
     let success = false;
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({success: success, errors: errors.array() });
+      return res.status(400).json({ success: success, errors: errors.array() });
     }
 
     try {
@@ -82,18 +86,23 @@ router.post("/login",
       let user = await User.findOne({ Email: req.body.Email });
       if (!user) {
         success = false;
-        return res
-          .status(400)
-          .json({success:success, error: "Please enter correct credentials" });
+        return res.status(400).json({
+          success: success,
+          error: "Please enter correct credentials",
+        });
       }
 
       //Compare user's password with password stored on database
-      const passwordCompare = await bcrypt.compare(req.body.Password , user.Password);
+      const passwordCompare = await bcrypt.compare(
+        req.body.Password,
+        user.Password
+      );
       if (!passwordCompare) {
         success = false;
-        return res
-          .status(400)
-          .json({success: success, error: "Please enter correct credentials" });
+        return res.status(400).json({
+          success: success,
+          error: "Please enter correct credentials",
+        });
       }
       //if user exists in database return user data
       const data = {
@@ -106,7 +115,6 @@ router.post("/login",
       const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
       res.json({ success, authtoken });
-
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -115,19 +123,72 @@ router.post("/login",
 );
 
 //Route 3: Get logged in User details using: POST "/api/auth/getuser". Login required
-router.post("/getuser", fetchuser,
-  async (req, res) => {
-    try {
-      const userId = req.user.id;
-      const user = await User.findById(userId).select("-password");
+router.post("/getuser", fetchuser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
 
-      res.send(user)
-      
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Server Error");
-    }
+    res.send(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
   }
-);
+});
+
+//Route 4: update User details using: PUT "/api/auth//updateuser/:id". Login required
+router.put("/updateuser/:id", fetchuser, async (req, res) => {
+  try {
+    const { FName, LName, DOB, Gender, CNIC, Phoneno, Address, ProfilePic } =
+      req.body;
+
+    const updatedUser = {};
+
+    //store property values in object
+    if (FName) {
+      updatedUser.FName = FName;
+    }
+    if (LName) {
+      updatedUser.LName = LName;
+    }
+    if (DOB) {
+      updatedUser.DOB = DOB;
+    }
+    if (Gender) {
+      updatedUser.Gender = Gender;
+    }
+    if (CNIC) {
+      updatedUser.CNIC = CNIC;
+    }
+    if (Phoneno) {
+      updatedUser.Phoneno = Phoneno;
+    }
+    if (Address) {
+      updatedUser.Address = Address;
+    }
+    if (ProfilePic) {
+      updatedUser.ProfilePic = ProfilePic;
+    }
+
+    console.log(updatedUser);
+
+    let user = await User.findById(req.user.id);
+    if (!user) {
+      return res.json({message:"Not Found", type:"error"});
+    }
+
+    //find user by id and update it
+    user = await User.findByIdAndUpdate(
+      req.params.id,
+      { $set: updatedUser },
+      { new: true }
+    );
+
+    res.json({ message: "Profile updated successfully.", type: "success" });
+    
+  } catch (error) {
+    console.error(error.message);
+    res.json({message:"Internal Server Error"});
+  }
+});
 
 module.exports = router;

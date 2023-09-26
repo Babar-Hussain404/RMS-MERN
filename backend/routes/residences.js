@@ -92,6 +92,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
     } = req.body;
 
     const updatedRes = {};
+    
     //store property values in object
     if (Name) {
       updatedRes.Name = Name;
@@ -142,6 +143,7 @@ router.put("/updateresidence/:id", fetchuser, async (req, res) => {
         return res.status(401).send("Not Allowed");
       }
     }
+    
     //find residence by id and update it
     residence = await Residence.findByIdAndUpdate(
       req.params.id,

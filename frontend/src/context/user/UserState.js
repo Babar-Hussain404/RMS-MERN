@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "./UserContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 const UserState = (props) => {
   const [user, setUser] = useState({});
+  const { showAlert } = useContext(AlertContext);
 
   const getUser = async () => {
     try {
@@ -10,8 +12,8 @@ const UserState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token")
-        }
+          "auth-token": localStorage.getItem("token"),
+        },
       });
       const userData = await response.json();
       setUser(userData); // Update the user state with the fetched data
@@ -20,8 +22,34 @@ const UserState = (props) => {
     }
   };
 
+  const updateUser = async (id, updatedData) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/auth/updateuser/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
+
+      let data = await response.json();
+
+      if (data.type === "success") {
+        showAlert(data.message, data.type);
+      } else {
+        showAlert(data.message, data.type);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, getUser }}>
+    <UserContext.Provider value={{ user, setUser, getUser, updateUser }}>
       {props.children}
     </UserContext.Provider>
   );
