@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import BookingContext from "../../context/bookings/BookingContext";
 
 const BookingList = () => {
