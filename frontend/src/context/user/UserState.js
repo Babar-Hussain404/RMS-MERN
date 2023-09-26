@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserContext from "./UserContext";
+import AlertContext from "../../context/alerts/AlertContext";
 
 const UserState = (props) => {
   const [user, setUser] = useState({});
+  const { showAlert } = useContext(AlertContext);
 
   const getUser = async () => {
     try {
@@ -20,7 +22,7 @@ const UserState = (props) => {
     }
   };
 
-  const updateUser = async (id) => {
+  const updateUser = async (id, updatedData) => {
     try {
       const response = await fetch(
         `http://localhost:5000/api/auth/updateuser/${id}`,
@@ -30,13 +32,17 @@ const UserState = (props) => {
             "Content-Type": "application/json",
             "auth-token": localStorage.getItem("token"),
           },
-          body: JSON.stringify(user),
+          body: JSON.stringify(updatedData),
         }
       );
 
       let data = await response.json();
-      return data;
-      
+
+      if (data.type === "success") {
+        showAlert(data.message, data.type);
+      } else {
+        showAlert(data.message, data.type);
+      }
     } catch (error) {
       console.error(error);
     }

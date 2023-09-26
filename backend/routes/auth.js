@@ -169,22 +169,25 @@ router.put("/updateuser/:id", fetchuser, async (req, res) => {
       updatedUser.ProfilePic = ProfilePic;
     }
 
+    console.log(updatedUser);
+
     let user = await User.findById(req.user.id);
     if (!user) {
       return res.json({message:"Not Found", type:"error"});
     }
 
     //find user by id and update it
-    user = await Residence.findByIdAndUpdate(
+    user = await User.findByIdAndUpdate(
       req.params.id,
       { $set: updatedUser },
       { new: true }
     );
 
     res.json({ message: "Profile updated successfully.", type: "success" });
+    
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    res.json({message:"Internal Server Error"});
   }
 });
 
