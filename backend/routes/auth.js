@@ -191,4 +191,16 @@ router.put("/updateuser/:id", fetchuser, async (req, res) => {
   }
 });
 
+//Route 5: Delete logged in User using: POST "/api/auth/deleteuser/:id". Login required
+router.delete("/deleteuser/:id", fetchuser, async (req, res) => {
+  try {
+    await User.findOneAndDelete(req.user.id);
+    res.json({message:"Account deleted successfully.", type:"success"});
+
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
