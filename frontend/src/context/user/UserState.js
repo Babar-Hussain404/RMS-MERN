@@ -10,8 +10,8 @@ const UserState = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token")
-        }
+          "auth-token": localStorage.getItem("token"),
+        },
       });
       const userData = await response.json();
       setUser(userData); // Update the user state with the fetched data
@@ -20,8 +20,30 @@ const UserState = (props) => {
     }
   };
 
+  const updateUser = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/auth/updateuser/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(user),
+        }
+      );
+
+      let data = await response.json();
+      return data;
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, getUser }}>
+    <UserContext.Provider value={{ user, setUser, getUser, updateUser }}>
       {props.children}
     </UserContext.Provider>
   );

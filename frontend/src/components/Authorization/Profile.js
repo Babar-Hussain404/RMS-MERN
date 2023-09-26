@@ -53,7 +53,7 @@ const Profile = () => {
 
                 {/* Buttons */}
                 <div className="d-flex justify-content-around mb-2">
-                  <Link to="/updateprofile" className="btn btn-info">
+                  <Link to={`/updateprofile/${user._id}`} className="btn btn-info">
                     <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
                   </Link>
                 </div>
