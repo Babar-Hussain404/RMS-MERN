@@ -1,7 +1,20 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/user/UserContext";
 
 const Setting = () => {
+  const { user, getUser, deleteUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const handleDeactivate = () => {
+    deleteUser(user._id);
+    navigate("/register");
+  };
+
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
       <h4 className="fw-bold mb-3">
@@ -24,35 +37,29 @@ const Setting = () => {
               </p>
             </div>
           </div>
-          <form
-            id="formAccountDeactivation"
-            method="post"
-            asp-controller="Users"
-            asp-action="Settings"
+
+          <div className="form-check mb-3">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              asp-for="ConfirmDelete"
+              id="accountActivation"
+            />
+            <label className="form-check-label" asp-for="ConfirmDelete">
+              I confirm my account deactivation
+            </label>
+            <br />
+            <span
+              asp-validation-for="ConfirmDelete"
+              className="text-danger"
+            ></span>
+          </div>
+          <button
+            onClick={() => handleDeactivate()}
+            className="btn btn-outline-danger deactivate-account mx-4"
           >
-            <div className="form-check mb-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                asp-for="ConfirmDelete"
-                id="accountActivation"
-              />
-              <label className="form-check-label" asp-for="ConfirmDelete">
-                I confirm my account deactivation
-              </label>
-              <br />
-              <span
-                asp-validation-for="ConfirmDelete"
-                className="text-danger"
-              ></span>
-            </div>
-            <button
-              type="submit"
-              className="btn btn-outline-danger deactivate-account mx-4"
-            >
-              <span className="tf-icons bx bxs-user-x"></span>&nbsp;Deactivate
-            </button>
-          </form>
+            <span className="tf-icons bx bxs-user-x"></span>&nbsp;Deactivate
+          </button>
         </div>
 
         <hr className="m-0" />
@@ -62,10 +69,7 @@ const Setting = () => {
         <div className="card-body">
           <div>Click the button below to update your profile.</div>
           <div className="my-3 col-12 mb-0">
-            <Link
-              to="/"
-              className="btn btn-infox-5 mx-4 btn-outline-info"
-            >
+            <Link to="/" className="btn btn-infox-5 mx-4 btn-outline-info">
               <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
             </Link>
           </div>
@@ -205,7 +209,8 @@ const Setting = () => {
               </div>
               <div className="mt-4">
                 <button type="submit" className="btn btn-outline-primary">
-                  <span className="tf-icons bx bx-save"></span>&nbsp;Save changes
+                  <span className="tf-icons bx bx-save"></span>&nbsp;Save
+                  changes
                 </button>
               </div>
             </div>
