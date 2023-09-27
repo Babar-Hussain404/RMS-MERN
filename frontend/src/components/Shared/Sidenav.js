@@ -34,33 +34,37 @@ const Sidenav = () => {
           </Link>
         </li>
 
-        <li className="menu-header small text-uppercase">
-          <span className="menu-header-text">Authorization</span>
-        </li>
+        {!localStorage.getItem("token") && (
+          <>
+            <li className="menu-header small text-uppercase">
+              <span className="menu-header-text">Authorization</span>
+            </li>
 
-        {/* Login */}
-        <li
-          className={`menu-item ${
-            location.pathname === "/login" ? "active" : ""
-          }`}
-        >
-          <Link to="/login" className="menu-link">
-            <i className="menu-icon tf-icons fa-solid fa-arrow-right-to-bracket"></i>
-            <div data-i18n="Login">Login</div>
-          </Link>
-        </li>
+            {/* Login */}
+            <li
+              className={`menu-item ${
+                location.pathname === "/login" ? "active" : ""
+              }`}
+            >
+              <Link to="/login" className="menu-link">
+                <i className="menu-icon tf-icons fa-solid fa-arrow-right-to-bracket"></i>
+                <div data-i18n="Login">Login</div>
+              </Link>
+            </li>
 
-        {/* Register */}
-        <li
-          className={`menu-item ${
-            location.pathname === "/register" ? "active" : ""
-          }`}
-        >
-          <Link to="/register" className="menu-link">
-            <i className="menu-icon tf-icons fa-regular fa-address-card"></i>
-            <div data-i18n="Register">Register</div>
-          </Link>
-        </li>
+            {/* Register */}
+            <li
+              className={`menu-item ${
+                location.pathname === "/register" ? "active" : ""
+              }`}
+            >
+              <Link to="/register" className="menu-link">
+                <i className="menu-icon tf-icons fa-regular fa-address-card"></i>
+                <div data-i18n="Register">Register</div>
+              </Link>
+            </li>
+          </>
+        )}
 
         {localStorage.getItem("token") && (
           <>
