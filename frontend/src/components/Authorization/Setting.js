@@ -69,7 +69,7 @@ const Setting = () => {
         <div className="card-body">
           <div>Click the button below to update your profile.</div>
           <div className="my-3 col-12 mb-0">
-            <Link to="/" className="btn btn-infox-5 mx-4 btn-outline-info">
+            <Link to={`/updateprofile/${user._id}`} className="btn btn-infox-5 mx-4 btn-outline-info">
               <span className="tf-icons bx bxs-edit"></span>&nbsp;Update
             </Link>
           </div>

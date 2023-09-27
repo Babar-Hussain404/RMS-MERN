@@ -3,11 +3,13 @@ import React, { useContext, useEffect } from "react";
 import AlertContext from "../../context/alerts/AlertContext";
 import ResidenceContext from "../../context/residences/ResidenceContext";
 import Residence from "./Residence";
+import UserContext from "../../context/user/UserContext";
 
 const House = () => {
   const { residences, getHouses } = useContext(ResidenceContext);
   const { showAlert } = useContext(AlertContext);
   const navigate = useNavigate();
+  const { user, getUser } = useContext(UserContext);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -16,6 +18,11 @@ const House = () => {
       navigate("/login");
       showAlert(`Please login to view residences`, "info");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,11 +62,15 @@ const House = () => {
           </h4>
         </div>
 
-        <div className="col-md-3">
-          <Link to="/add" className="btn btn-primary mx-4">
-            <span className="tf-icons bx bx-add-to-queue"></span>&nbsp;Add
-            Residence
-          </Link>
+        <div className="col-md-3">  
+          {user.UserType !== "Customer" ? (
+                <Link to="/add" className="btn btn-primary mx-4">
+                <span className="tf-icons bx bx-add-to-queue"></span>&nbsp;Add
+                Residence
+              </Link>
+              ) : (
+                ""
+              )}
         </div>
       </div>
 

@@ -1,15 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
 import UserContext from "../../context/user/UserContext";
 
 const Residence = (props) => {
   const { residence, createBooking } = props;
   const { user, getUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
+
+  const handleBooking = () => {
+    createBooking(residence._id);
+    navigate("/bookinglist")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
 
   return (
     <div className="col-md-6 col-lg-4 mb-3">
@@ -48,30 +55,30 @@ const Residence = (props) => {
             >
               <span className="tf-icons bx bx-detail"></span>&nbsp;Details
             </Link>
-            {user.UserType !== "Customer" ? (
-              <>
-                <Link
-                  className="btn btn-outline-warning"
-                  to={`/update/${residence._id}`}
-                >
-                  <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
-                </Link>
+              {user.UserType !== "Customer" ? (
+                <>
+                  <Link
+                    className="btn btn-outline-warning"
+                    to={`/update/${residence._id}`}
+                  >
+                    <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
+                  </Link>
 
-                <Link
-                  className="btn btn-outline-danger"
-                  to={`/delete/${residence._id}`}
+                  <Link
+                    className="btn btn-outline-danger"
+                    to={`/delete/${residence._id}`}
+                  >
+                    <span className="tf-icons bx bx-trash"></span>&nbsp;Delete
+                  </Link>
+                </>
+              ) : (
+                <button
+                  className="btn btn-outline-primary"
+                  onClick={() => handleBooking()}
                 >
-                  <span className="tf-icons bx bx-trash"></span>&nbsp;Delete
-                </Link>
-              </>
-            ) : (
-              <button
-                className="btn btn-outline-primary"
-                onClick={() => createBooking(residence._id)}
-              >
-                Book
-              </button>
-            )}
+                  Book
+                </button>
+              )}
           </div>
         </div>
       </div>

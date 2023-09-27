@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserContext from "../../context/user/UserContext";
 import AlertCotext from "../../context/alerts/AlertContext";
 
@@ -7,16 +7,19 @@ const Topnav = () => {
   const navigate = useNavigate();
   const { showAlert } = useContext(AlertCotext);
   const { user, getUser } = useContext(UserContext);
+  const location = useLocation();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getUser();
     } else {
-      navigate("/login");
-      showAlert(`Please login to view profile`, "info");
+      if (location.pathname !== "/login") {
+        navigate("/login");
+        showAlert(`Please login to view profile`, "info");
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   const logOut = () => {
     localStorage.removeItem("token");
@@ -53,75 +56,80 @@ const Topnav = () => {
         </div>
         {/* /Search */}
 
-        <ul className="navbar-nav flex-row align-items-center ms-auto">
-          {/* User */}
-          <li className="nav-item navbar-dropdown dropdown-user dropdown">
-            {user.ProfilePic && (
-              <a
-                className="nav-link dropdown-toggle hide-arrow"
-                href="#"
-                data-bs-toggle="dropdown"
-              >
-                <div className="avatar avatar-online">
-                  <img
-                    src={`data:image/png;base64,${user.ProfilePic}`}
-                    alt="Profile pic"
-                    className="w-px-40 h-auto rounded-circle"
-                  />
-                </div>
-              </a>
-            )}
-
-            <ul className="dropdown-menu dropdown-menu-end">
-              <li>
-                <a className="dropdown-item" href="">
-                  <div className="d-flex">
-                    <div className="flex-shrink-0 me-3">
-                      <div className="avatar avatar-online">
-                        <img
-                          src={`data:image/png;base64,${user.ProfilePic}`}
-                          alt="Profile pic"
-                          className="w-px-40 h-auto rounded-circle"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-grow-1">
-                      <span className="fw-semibold d-block">
-                        {user.FName} {user.LName}
-                      </span>
-                      <small className="text-muted">{user.UserType}</small>
-                    </div>
+        {localStorage.getItem("token") && (
+          <ul className="navbar-nav flex-row align-items-center ms-auto">
+            {/* User */}
+            <li className="nav-item navbar-dropdown dropdown-user dropdown">
+              {user.ProfilePic && (
+                <a
+                  className="nav-link dropdown-toggle hide-arrow"
+                  href="#"
+                  data-bs-toggle="dropdown"
+                >
+                  <div className="avatar avatar-online">
+                    <img
+                      src={`data:image/png;base64,${user.ProfilePic}`}
+                      alt="Profile pic"
+                      className="w-px-40 h-auto rounded-circle"
+                    />
                   </div>
                 </a>
-              </li>
-              <li>
-                <div className="dropdown-divider"></div>
-              </li>
-              <li>
-                <Link className="dropdown-item" to="/profile">
-                  <i className="bx bx-user me-2"></i>
-                  <span className="align-middle">My Profile</span>
-                </Link>
-              </li>
-              <li>
-                <Link className="dropdown-item" to="/setting">
-                  <i className="bx bx-cog me-2"></i>
-                  <span className="align-middle">Settings</span>
-                </Link>
-              </li>
-              <li>
-                <div className="dropdown-divider"></div>
-              </li>
-              <li>
-                <button onClick={logOut} className="dropdown-item text-danger">
-                  <i className="bx bx-log-out me-2"></i>
-                  <span className="align-middle">Log Out</span>
-                </button>
-              </li>
-            </ul>
-          </li>
-          {/*/ User */}
-        </ul>
+              )}
+
+              <ul className="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a className="dropdown-item" href="">
+                    <div className="d-flex">
+                      <div className="flex-shrink-0 me-3">
+                        <div className="avatar avatar-online">
+                          <img
+                            src={`data:image/png;base64,${user.ProfilePic}`}
+                            alt="Profile pic"
+                            className="w-px-40 h-auto rounded-circle"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex-grow-1">
+                        <span className="fw-semibold d-block">
+                          {user.FName} {user.LName}
+                        </span>
+                        <small className="text-muted">{user.UserType}</small>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <div className="dropdown-divider"></div>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/profile">
+                    <i className="bx bx-user me-2"></i>
+                    <span className="align-middle">My Profile</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/setting">
+                    <i className="bx bx-cog me-2"></i>
+                    <span className="align-middle">Settings</span>
+                  </Link>
+                </li>
+                <li>
+                  <div className="dropdown-divider"></div>
+                </li>
+                <li>
+                  <button
+                    onClick={logOut}
+                    className="dropdown-item text-danger"
+                  >
+                    <i className="bx bx-log-out me-2"></i>
+                    <span className="align-middle">Log Out</span>
+                  </button>
+                </li>
+              </ul>
+            </li>
+            {/*/ User */}
+          </ul>
+        )}
       </div>
     </nav>
   );
