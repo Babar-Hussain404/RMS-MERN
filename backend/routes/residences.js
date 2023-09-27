@@ -169,12 +169,6 @@ router.get("/getresidence/:id", fetchuser, async (req, res) => {
       return res.status(404).send("Not Found");
     }
 
-    //if unauthorized user accesses the residence retun error
-    if (residence.OwnerId.toString() !== req.user.id) {
-      {
-        return res.status(401).send("Not Allowed");
-      }
-    }
     res.json({ residence });
 
     //catch errors

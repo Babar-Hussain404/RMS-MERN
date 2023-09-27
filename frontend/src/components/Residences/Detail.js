@@ -1,14 +1,29 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import ResidenceContext from "../../context/residences/ResidenceContext";
+import UserContext from "../../context/user/UserContext";
 
 const Detail = () => {
   let { id } = useParams();
-  const { residence, getResidenceDetails } = useContext(ResidenceContext);
+  const { residence, createBooking, getResidenceDetails } =
+    useContext(ResidenceContext);
+  const { user, getUser } = useContext(UserContext);
 
   useEffect(() => {
     getResidenceDetails(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [residence]);
+
+  useEffect(() => {
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (user.Type === "Customer") {
+      getResidenceDetails(id);
+    }
+  }, [residence]);
 
   return (
     <div className="container-xxl flex-grow-1 container-p-y">
@@ -48,13 +63,22 @@ const Detail = () => {
 
                 {/* Buttons */}
                 <div className="d-flex btn-group mx-4">
-                  <Link
-                    className="btn btn-warning"
-                    to={`/update/${residence._id}`}
-                  >
-                    <span className="tf-icons bx bx-edit-alt"></span>&nbsp;Edit
-                  </Link>
-
+                  {user.UserType !== "Customer" ? (
+                    <Link
+                      className="btn btn-warning"
+                      to={`/update/${residence._id}`}
+                    >
+                      <span className="tf-icons bx bx-edit-alt"></span>
+                      &nbsp;Edit
+                    </Link>
+                  ) : (
+                    <button
+                      className="btn btn-outline-primary"
+                      onClick={() => createBooking(residence._id)}
+                    >
+                      Book
+                    </button>
+                  )}
                   <Link
                     to={`/${residence.Type}`}
                     className="btn btn-outline-secondary"
